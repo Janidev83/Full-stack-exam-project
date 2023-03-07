@@ -1,0 +1,37 @@
+<section class="d-flex align-items-center">
+  <div class="container-sm">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-10 col-xxl-8">
+        <table *ngIf="ordersList && ordersList.length !== 0 else dontHaveOrders" class="table table-striped rounded bg-white caption-top">
+          <caption class="text-center fs-3">Your Orders</caption>
+          <thead>
+            <tr>
+              <th scope="col">Order number</th>
+              <th scope="col">Date</th>
+              <th scope="col">Delivery address</th>
+              <th scope="col">Amount paid</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let order of ordersList">
+              <td scope="row">{{mintaOrder.number}}</td>
+              <td>{{mintaOrder.date | date: 'medium'}}</td>
+              <td>{{mintaOrder.delAddress}}</td>
+              <td>{{mintaOrder.paidAmount}}</td>
+              <td><button (click)="deleteOrder()" type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #dontHaveOrders>
+          <div class="row">
+            <p class="col fs-1">
+              You don't have orders yet! :(
+            </p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>

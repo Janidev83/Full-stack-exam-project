@@ -1,0 +1,8 @@
+@import '../../../assets/scss/variables';
+
+.welcome-section {
+  background-image:url('../../../assets/img/Welcome.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: $page-component-min-height;
+}

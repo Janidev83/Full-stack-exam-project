@@ -1,0 +1,18 @@
+<div class="card shadow p-2">
+  <div class="row g-0">
+    <div class="col-5 d-flex align-items-center p-2">
+      <img [src]="idomChild.image" class="img-fluid rounded" alt="electro-coup">
+    </div>
+    <div class="col-7">
+      <div class="card-body text-center p-0">
+        <h5 class="card-title">{{idomChild.name}}</h5>
+        <p class="card-text">{{idomChild.manufacturer}}</p>
+        <p class="card-text">{{idomChild.weldtech}}</p>
+        <p class="card-text fw-semibold">{{idomChild.price}} HUF</p>
+        <button type="button" class="btn btn-sm btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

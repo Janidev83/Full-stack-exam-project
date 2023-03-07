@@ -1,0 +1,15 @@
+@import 'src/assets/scss/variables';
+
+i:hover {
+  color: $secondary-color !important;
+}
+
+footer {
+  min-height: 27vh;
+
+  .border-warning {
+    --bs-border-opacity: 0.3;
+  }
+}
+
+

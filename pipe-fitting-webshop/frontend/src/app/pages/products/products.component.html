@@ -1,0 +1,12 @@
+<section class="d-flex justify-content-center align-items-center pb-lg-0">
+  <div class="container py-3 p-lg-0 position-relative">
+    <div class="row justify-content-center">
+      <div *ngFor="let cso of idomok" class="col-11 col-sm-9 col-md-6 col-lg-4 p-2">
+        <app-product-item [idomChild]="idom"></app-product-item>
+      </div>
+    </div>
+    <div class="position-absolute start-50 translate-middle-x mt-4">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</section>

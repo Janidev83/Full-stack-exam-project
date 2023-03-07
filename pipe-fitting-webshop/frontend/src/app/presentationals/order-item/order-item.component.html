@@ -1,0 +1,18 @@
+<div class="container-sm my-2">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-10 col-xxl-8">
+      <div class="row shadow rounded justify-content-evenly align-items-center bg-white">
+        <div class="col-2 col-lg-1 d-flex align-items-center image-holder">
+          <img [src]="idomAdat.image" class="img-fluid p-2" alt="coupler">
+        </div>
+        <div class="col-3 text-center">{{idomAdat.name}}</div>
+        <div class="col-3 text-center">{{idomAdat.price}} HUF / piece</div>
+        <div class="col-4 text-center">
+          <span (click)="decreaseAmount()" class="me-1" type="button"><i class="bi bi-dash-circle"></i></span>
+          <input type="text" [(ngModel)]="amount" disabled>
+          <span (click)="increaseAmount()" class="ms-1" type="button"><i class="bi bi-plus-circle"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

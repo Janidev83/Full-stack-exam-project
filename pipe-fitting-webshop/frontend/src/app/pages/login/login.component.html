@@ -1,0 +1,25 @@
+<form #loginFrom="ngForm" (ngSubmit)="loginUser(loginFrom)">
+  <section class="container-md row m-auto">
+    <div class="col-sm-6 col-lg-4 m-auto pb-3 px-0">
+      <div class="mb-3">
+        <label for="email" class="form-label fw-bold">Email address</label>
+        <input type="email" class="form-control" id="email" name="email"
+        [(ngModel)]="loggingUser.email"
+        required
+        #emailInput="ngModel">
+        <small *ngIf="emailInput.invalid && emailInput.dirty" class="text-danger">Enter your email!</small>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label fw-bold">Password</label>
+        <input type="password" class="form-control" id="password" name="password"
+        [(ngModel)]="loggingUser.password"
+        required
+        #passwordInput="ngModel">
+        <small *ngIf="passwordInput.invalid && passwordInput.dirty" class="text-danger">Enter your password!</small>
+      </div>
+    </div>
+    <div class="row justify-content-center m-auto">
+      <button type="submit" class="btn btn-primary col-sm-6 col-md-6 col-lg-1" [disabled]="loginFrom.invalid">Login</button>
+    </div>
+  </section>
+</form>

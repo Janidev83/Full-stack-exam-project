@@ -1,0 +1,30 @@
+@import '../../../assets/scss/variables';
+
+form {
+  min-height: $page-component-min-height;
+  display: flex;
+  align-items: center;
+  background-image:url('../../../assets/img/registration.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+label {
+  color: white;
+  text-shadow:  $primary-shadow, 0 0 10px black;
+}
+
+input {
+  box-shadow: $primary-shadow;
+}
+
+button {
+  background-color: $secondary-color;
+  box-shadow: $primary-shadow;
+  color: black;
+}
+
+.form-control:focus {
+  border-color: black;
+  box-shadow: none;
+}
