@@ -1,8 +1,0 @@
-@import '../../../assets/scss/_variables';
-
-section {
-  background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('../../../assets/img/cart.jpg');
-  background-size: cover;
-  background-position: center;
-  min-height: $page-component-min-height;
-}
