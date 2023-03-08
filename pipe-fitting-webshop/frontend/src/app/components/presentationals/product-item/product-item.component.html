@@ -9,7 +9,7 @@
         <p class="card-text">{{idomChild.manufacturer}}</p>
         <p class="card-text">{{idomChild.weldtech}}</p>
         <p class="card-text fw-semibold">{{idomChild.price}} HUF</p>
-        <button type="button" class="btn btn-sm btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button *ngIf="loggedUser" type="button" class="btn btn-sm btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           Add to cart
         </button>
       </div>

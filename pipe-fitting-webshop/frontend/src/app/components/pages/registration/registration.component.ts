@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -26,7 +27,7 @@ export class RegistrationComponent implements OnInit {
     password: ''
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     if(this.loggedUser) {
@@ -36,9 +37,11 @@ export class RegistrationComponent implements OnInit {
 
   registrateUser(form: NgForm): void {
     console.log('registrate:', form.value);
+    this.router.navigate(['']);
   }
 
   updateUser(form: NgForm): void {
     console.log('update:', form.value);
+    this.router.navigate(['']);
   }
 }

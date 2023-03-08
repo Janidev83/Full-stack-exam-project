@@ -14,19 +14,19 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <tr *ngFor="let order of ordersList">
+            <tr *ngFor="let order of ordersList; index as i">
               <td scope="row">{{mintaOrder.number}}</td>
               <td>{{mintaOrder.date | date: 'medium'}}</td>
               <td>{{mintaOrder.delAddress}}</td>
               <td>{{mintaOrder.paidAmount}}</td>
-              <td><button (click)="deleteOrder()" type="button" class="btn btn-danger">Delete</button></td>
+              <td><button (click)="deleteOrder(i)" type="button" class="btn btn-danger">Delete</button></td>
             </tr>
           </tbody>
         </table>
 
         <ng-template #dontHaveOrders>
           <div class="row">
-            <p class="col fs-1">
+            <p class="col fs-1 text-center">
               You don't have orders yet! :(
             </p>
           </div>

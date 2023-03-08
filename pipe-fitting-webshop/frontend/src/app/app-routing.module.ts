@@ -12,8 +12,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'update_account', component: RegistrationComponent},
-  {path: 'products', component: ProductsComponent},
-  {path: 'orders', component: OrdersComponent},
+  {path: 'product', component: ProductsComponent},
+  {path: 'order', component: OrdersComponent},
   {path: 'cart', component: CartComponent},
   {path: '**', redirectTo: ''}
 ];

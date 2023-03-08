@@ -1,7 +1,7 @@
 @import "../../../../assets/scss/variables";
 
-.active-link {
+
+.active-link, .logout-link:hover {
   font-weight: bold;
   color: $secondary-color !important;
 }
-

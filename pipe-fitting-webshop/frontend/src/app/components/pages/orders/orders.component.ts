@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  ordersList?: Array<any> = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,65,76,7,8,9,1,2,2,3,4,5,,6,7,8,,8];
+  ordersList?: Array<any> = [1,2,3,4,5,6,7,8,9];
   mintaOrder: any = {
     number: 123456789,
     date: new Date(),
@@ -20,14 +20,13 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteOrder(): void {
+  deleteOrder(index: number): void {
     const confirmDelete = confirm('Are you sure about canceling the order?');
     if(confirmDelete) {
       console.log('Rendelést törölni!');
       // törlés az adatbázisból
-      this.ordersList?.splice(this.ordersList.length - 1, 1);
-      // generálódjon újra a táblázat:
-      this.ngOnInit();
+      this.ordersList?.splice(index, 1);
+      // generálódjon újra a táblázat??
     }
   }
 

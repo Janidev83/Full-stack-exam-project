@@ -17,17 +17,23 @@ export class CartComponent implements OnInit {
   };
 
   totalPrice: number = 0;
+  amount: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  getPrice(amountObj: any): any {
+  getPrice(amountObj: any, index: number): any {
+    //Ezt átalakítani, hogy mindegyik legenerált gyereknek az amountját sugározza (Ezt a sort)
+    this.amount = amountObj.amount;
+
     if(amountObj.operation === 'increase') {
       this.totalPrice += amountObj.price;
-    } else {
+    } else if(amountObj.operation === 'decrease') {
       this.totalPrice -= amountObj.price;
+    } else if (amountObj.operation === 'delete') {
+      this.deleteItemFromLocalStorage(index)
     }
   }
 
@@ -36,6 +42,12 @@ export class CartComponent implements OnInit {
     if(confirmOrder) {
       console.log('rendelést el kell küldenünk most!');
     }
+  }
+
+  deleteItemFromLocalStorage(index: number): void {
+    console.log('Törölni a localStorageből az aktuális itemet!!!');
+    this.rendelendoIdomfajtak.splice(index, 1);
+    // generálódjon újra a táblázat??
   }
 
 }

@@ -9,7 +9,7 @@
         <div class="col-3 text-center">{{idomAdat.price}} HUF / piece</div>
         <div class="col-4 text-center">
           <span (click)="decreaseAmount()" class="me-1" type="button"><i class="bi bi-dash-circle"></i></span>
-          <input type="text" [(ngModel)]="amount" disabled>
+          <input type="text" [(ngModel)]="childAmount" disabled>
           <span (click)="increaseAmount()" class="ms-1" type="button"><i class="bi bi-plus-circle"></i></span>
         </div>
       </div>

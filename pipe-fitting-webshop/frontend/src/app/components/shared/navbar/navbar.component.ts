@@ -14,4 +14,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+    console.log('Ki akarok jelentkezni!!!');
+
+  }
 }

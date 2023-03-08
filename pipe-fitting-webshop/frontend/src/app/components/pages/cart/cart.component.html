@@ -1,6 +1,6 @@
 <section class="d-flex justify-content-center align-items-center flex-column py-4">
-  <ng-container *ngFor="let idom of rendelendoIdomfajtak">
-    <app-order-item class="container-fluid" [idomAdat]="idomfajta" (productAmount)="getPrice($event)"></app-order-item>
+  <ng-container *ngFor="let idom of rendelendoIdomfajtak; index as i">
+    <app-order-item class="container-fluid" [idomAdat]="idomfajta" (productAmount)="getPrice($event, i)"></app-order-item>
   </ng-container>
   <div class="container-fluid">
     <div class="container-sm my-2">
@@ -9,7 +9,7 @@
           <div class="row justify-content-end m-0">
             <div class="col-6 col-md-4 col-lg-3 mb-3 py-2 text-center shadow rounded bg-white fw-bolder">Total price: {{totalPrice}} HUF</div>
           </div>
-          <button (click)="confirmOrder()" type="button" class="btn btn-primary" [disabled]="totalPrice === 0">Send Order</button>
+          <button (click)="confirmOrder()" type="button" class="btn btn-primary" [disabled]="totalPrice === 0 || amount === 0">Send Order</button>
         </div>
       </div>
     </div>
