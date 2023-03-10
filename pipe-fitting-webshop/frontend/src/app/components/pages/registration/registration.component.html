@@ -1,4 +1,4 @@
-<form #regForm="ngForm">
+<form #regForm="ngForm" (ngSubmit)="handleUser(regForm)">
   <section class="container-md row m-auto">
     <div class="col-sm-6 col-lg-4 m-auto pb-3 px-0">
       <div class="mb-3">
@@ -34,8 +34,7 @@
         <small *ngIf="emailInput.invalid && emailInput.dirty" class="text-danger">Enter your e-mail!</small>
       </div>
       <div class="mb-3">
-        <label *ngIf="loggedUser===false" for="password" class="form-label fw-bold">Password</label>
-        <label *ngIf="loggedUser===true" for="password" class="form-label fw-bold">Update Password</label>
+        <label for="password" class="form-label fw-bold">{{role === 'update_account' ? 'Update Password' : 'Password'}}</label>
         <input type="password" class="form-control" id="password" name="password"
         [(ngModel)]="newUserData.password"
         required
@@ -44,8 +43,7 @@
       </div>
     </div>
     <div class="row justify-content-center m-auto">
-      <button *ngIf="loggedUser===false" (click)="registrateUser(regForm)" type="submit" class="btn btn-primary col-sm-6 col-md-6 col-lg-2" [disabled]="regForm.invalid">Registration</button>
-      <button *ngIf="loggedUser===true" (click)="updateUser(regForm)" type="submit" class="btn btn-primary col-sm-6 col-md-6 col-lg-2" [disabled]="regForm.invalid">Update Account</button>
+      <button type="submit" class="btn btn-primary col-sm-6 col-md-6 col-lg-2" [disabled]="regForm.invalid">{{role === 'update_account' ? 'Update Account' : 'Registration'}}</button>
     </div>
   </section>
 </form>

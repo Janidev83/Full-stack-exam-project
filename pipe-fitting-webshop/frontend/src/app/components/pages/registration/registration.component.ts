@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
 
-  loggedUser: any = true;
+  role!: string;
 
   oldUserData: any = {
-    id: 'database id',
+    _id: 'database id',
     lastName: 'Ambrus',
     firstName: 'János',
     address: '1031 Budapest, Csónakház utca 9.',
@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   newUserData = {
+    _id: this.oldUserData._id,
     lastName: '',
     firstName: '',
     address: '',
@@ -27,12 +28,19 @@ export class RegistrationComponent implements OnInit {
     password: ''
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if(this.loggedUser) {
-      this.newUserData = this.oldUserData;
+    this.role = this.activatedRoute.snapshot.url[0].path;
+
+    if(this.role === 'update_account') {
+      this.newUserData = {...this.oldUserData};
     }
+  }
+
+  handleUser(form: NgForm): void {
+    if(this.role === 'registration') this.registrateUser(form);
+    if(this.role === 'update_account') this.updateUser(form);
   }
 
   registrateUser(form: NgForm): void {

@@ -4,6 +4,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use(express.static('public'));
+
 //* endpoints
 app.post('/login', (req, res) => {
     console.log(req.body);

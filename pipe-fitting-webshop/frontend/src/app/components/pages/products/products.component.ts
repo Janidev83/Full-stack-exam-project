@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
     manufacturer: 'AGRU',
     weldtech: 'electrofusion',
     price: 1000,
-    image: '../../../assets/img/electrofusion_coupler.jpg'
+    imageUrl: '../../../assets/img/electrofusion_coupler.jpg'
   };
 
   constructor() { }
