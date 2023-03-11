@@ -4,7 +4,7 @@
       <div class="mb-3">
         <label for="email" class="form-label fw-bold">Email address</label>
         <input type="email" class="form-control" id="email" name="email"
-        [(ngModel)]="loggingUser.email"
+        [(ngModel)]="loginCustomer.email"
         required
         #emailInput="ngModel">
         <small *ngIf="emailInput.invalid && emailInput.dirty" class="text-danger">Enter your email!</small>
@@ -12,7 +12,7 @@
       <div class="mb-3">
         <label for="password" class="form-label fw-bold">Password</label>
         <input type="password" class="form-control" id="password" name="password"
-        [(ngModel)]="loggingUser.password"
+        [(ngModel)]="loginCustomer.password"
         required
         #passwordInput="ngModel">
         <small *ngIf="passwordInput.invalid && passwordInput.dirty" class="text-danger">Enter your password!</small>

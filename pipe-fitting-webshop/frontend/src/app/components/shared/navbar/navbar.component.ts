@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     console.log('Ki akarok jelentkezni!!!');
-
   }
+
+
 }

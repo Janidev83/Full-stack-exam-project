@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from './components/presentationals/product-item/product-item.component';
 import { PaginationComponent } from './components/presentationals/pagination/pagination.component';
 import { OrderItemComponent } from './components/presentationals/order-item/order-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { OrderItemComponent } from './components/presentationals/order-item/orde
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

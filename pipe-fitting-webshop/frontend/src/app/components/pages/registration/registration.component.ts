@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerService } from 'src/app/service/customer/customer.service';
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +29,11 @@ export class RegistrationComponent implements OnInit {
     password: ''
   }
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private customerService: CustomerService
+    ) { }
 
   ngOnInit(): void {
     this.role = this.activatedRoute.snapshot.url[0].path;
@@ -45,11 +50,13 @@ export class RegistrationComponent implements OnInit {
 
   registrateUser(form: NgForm): void {
     console.log('registrate:', form.value);
+    this.customerService.register(form.value).subscribe();
     this.router.navigate(['']);
   }
 
   updateUser(form: NgForm): void {
     console.log('update:', form.value);
+    this.customerService.update(form.value).subscribe();
     this.router.navigate(['']);
   }
 }

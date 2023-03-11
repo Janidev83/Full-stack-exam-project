@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/model/product.model';
+import { ProductService } from 'src/app/service/product/product.service';
 
 @Component({
   selector: 'app-products',
@@ -7,18 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  idomok: Array<number> = [1, 2, 3, 4, 5, 6];
-  idom: any = {
-    name: 'Coupler 20mm',
-    manufacturer: 'AGRU',
-    weldtech: 'electrofusion',
-    price: 1000,
-    imageUrl: '../../../assets/img/electrofusion_coupler.jpg'
-  };
+  products!: Array<Product>;
 
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: res => this.products = res
+    });
+  }
+
+  setLocalStorage(index: number): void {
+    const orderItems = localStorage.getItem('orderItems');
+    const chosenItem = this.products[index];
+
+
+    if(orderItems) {
+      const parsedItems = JSON.parse(orderItems);
+      if(parsedItems.find((item: Product) => item.name === chosenItem.name)) return;
+      parsedItems.push({...chosenItem});
+      localStorage.setItem('orderItems', JSON.stringify(parsedItems));
+    } else {
+      localStorage.setItem('orderItems', JSON.stringify([chosenItem]));
+    }
   }
 
 }
