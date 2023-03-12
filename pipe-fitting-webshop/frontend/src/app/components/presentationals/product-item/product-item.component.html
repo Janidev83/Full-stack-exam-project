@@ -9,7 +9,7 @@
         <p class="card-text">{{product.manufacturer}}</p>
         <p class="card-text">{{product.weldtech}}</p>
         <p class="card-text fw-semibold">{{product.price}} HUF</p>
-        <button *ngIf="loggedUser" type="button" class="btn btn-sm btn-primary mb-1" (click)="passIndex()">Add to cart</button>
+        <button *ngIf="loggedUser" type="button" class="btn btn-sm btn-primary mb-1" (click)="passIndex()" [disabled]="storageContains">{{storageContains ? 'Already in cart' : 'Add to cart'}}</button>
       </div>
     </div>
   </div>

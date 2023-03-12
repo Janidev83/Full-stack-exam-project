@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class OrderItemComponent implements OnInit {
 
-  @Input() idomAdat: any;
+  @Input() itemData: any;
   @Output() productAmount = new EventEmitter<any>();
   childAmount: number = 0;
 
@@ -32,7 +32,7 @@ export class OrderItemComponent implements OnInit {
   }
 
   emitProductAmount(operation?: string): void {
-    this.productAmount.emit({operation: operation, price: this.idomAdat.price, amount: this.childAmount});
+    this.productAmount.emit({operation: operation, price: this.itemData.price, amount: this.childAmount});
   }
 
 }

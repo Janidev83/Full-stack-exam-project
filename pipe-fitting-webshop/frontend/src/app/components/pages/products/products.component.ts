@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
+import { StorageService } from 'src/app/service/storage/storage.service';
 import { ProductService } from 'src/app/service/product/product.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class ProductsComponent implements OnInit {
 
   products!: Array<Product>;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private StorageService: StorageService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
@@ -21,18 +21,20 @@ export class ProductsComponent implements OnInit {
   }
 
   setLocalStorage(index: number): void {
-    const orderItems = localStorage.getItem('orderItems');
+    const orderItems = this.StorageService.getLocalStorageItems();
     const chosenItem = this.products[index];
 
-
-    if(orderItems) {
-      const parsedItems = JSON.parse(orderItems);
-      if(parsedItems.find((item: Product) => item.name === chosenItem.name)) return;
-      parsedItems.push({...chosenItem});
-      localStorage.setItem('orderItems', JSON.stringify(parsedItems));
-    } else {
+    if(!orderItems) {
       localStorage.setItem('orderItems', JSON.stringify([chosenItem]));
     }
+    if(orderItems) {
+      if(this.StorageService.examStorage(orderItems, chosenItem)) return;
+      orderItems.push({...chosenItem});
+      localStorage.setItem('orderItems', JSON.stringify(orderItems));
+    }
+    this.StorageService.addSumOfItems();
   }
 
 }
+
+

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/model/product.model';
+import { StorageService } from 'src/app/service/storage/storage.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -7,27 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
   // localStorage-ből
-  rendelendoIdomfajtak: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  idomfajta: any = {
-    name: 'Elbow 90° 63mm',
-    manufacturer: 'Georg Fischer',
-    weldtech: 'butt-welding',
-    price: 2300,
-    image: '../../../assets/img/electrfusion_saddle.jpg'
-  };
+  itemsInStorage?: Array<Product> | undefined;
 
   totalPrice: number = 0;
   amount: number = 0;
 
-  constructor() { }
+  constructor(private router: Router, private storageService: StorageService) { }
 
   ngOnInit(): void {
+    if(this.storageService.getLocalStorageItems()) {
+      this.itemsInStorage = this.storageService.getLocalStorageItems();
+    }
   }
 
   getPrice(amountObj: any, index: number): any {
-    //Ezt átalakítani, hogy mindegyik legenerált gyereknek az amountját sugározza (Ezt a sort)
-    this.amount = amountObj.amount;
-
     if(amountObj.operation === 'increase') {
       this.totalPrice += amountObj.price;
     } else if(amountObj.operation === 'decrease') {
@@ -37,17 +34,29 @@ export class CartComponent implements OnInit {
     }
   }
 
-  confirmOrder(): void {
+  sendOrder(): void {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder) {
       console.log('rendelést el kell küldenünk most!');
+      localStorage.clear();
+      this.router.navigate(['']);
     }
   }
 
   deleteItemFromLocalStorage(index: number): void {
     console.log('Törölni a localStorageből az aktuális itemet!!!');
-    this.rendelendoIdomfajtak.splice(index, 1);
-    // generálódjon újra a táblázat??
+    const storageItems = this.storageService.getLocalStorageItems();
+    if(storageItems) {
+      if(storageItems.length > 0) {
+        storageItems.splice(index, 1);
+        if(storageItems.length >= 1) localStorage.setItem('orderItems', JSON.stringify(storageItems));
+      };
+      if(storageItems.length === 0) {
+        localStorage.clear();
+        this.itemsInStorage = undefined;
+      };
+    }
+    this.ngOnInit();
   }
 
 }

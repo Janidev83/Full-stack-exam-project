@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/model/product.model';
+import { StorageService } from 'src/app/service/storage/storage.service';
 
 @Component({
   selector: 'app-product-item',
@@ -8,18 +9,24 @@ import { Product } from 'src/app/model/product.model';
 })
 export class ProductItemComponent implements OnInit {
 
-  @Input() product?: Product;
+  @Input() product!: Product;
   @Input() index!: number;
   @Output() emitIndex = new EventEmitter<number>();
+  storageContains!: boolean;
   loggedUser: boolean = true;
 
-  constructor() { }
+  constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
+    const storageItems = this.storageService.getLocalStorageItems();
+    if(storageItems) {
+      this.storageContains = this.storageService.examStorage(storageItems, this.product);
+    }
   }
 
   passIndex(): void {
     this.emitIndex.emit(this.index);
+    this.ngOnInit();
   }
 
 }
