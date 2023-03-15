@@ -58,8 +58,6 @@ export class CartComponent implements OnInit {
       };
     }
     this.storageService.addSumOfItems();
-    this.setCartData();
-
   }
 
 }
