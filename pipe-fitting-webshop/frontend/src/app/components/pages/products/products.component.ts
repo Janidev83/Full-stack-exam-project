@@ -12,7 +12,7 @@ export class ProductsComponent implements OnInit {
 
   products!: Array<Product>;
 
-  constructor(private productService: ProductService, private StorageService: StorageService) { }
+  constructor(private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
@@ -20,19 +20,9 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  setLocalStorage(index: number): void {
-    const orderItems = this.StorageService.getLocalStorageItems();
-    const chosenItem = {...this.products[index], quantity: 1};
-
-    if(!orderItems) {
-      localStorage.setItem('orderItems', JSON.stringify([chosenItem]));
-    }
-    if(orderItems) {
-      if(this.StorageService.examStorage(orderItems, chosenItem)) return;
-      orderItems.push({...chosenItem});
-      localStorage.setItem('orderItems', JSON.stringify(orderItems));
-    }
-    this.StorageService.addSumOfItems();
+  addToStorage(index: number): void {
+    this.storageService.setLocalStorage(index, this.products);
+    this.storageService.addSumOfItems();
   }
 
 }

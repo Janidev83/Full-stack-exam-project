@@ -18,6 +18,20 @@ export class StorageService {
     };
   }
 
+  setLocalStorage(index: number, items: Array<Product>): void {
+    const orderItems = this.getLocalStorageItems();
+    const chosenItem = {...items[index], quantity: 1};
+
+    if(!orderItems) {
+      localStorage.setItem('orderItems', JSON.stringify([chosenItem]));
+    }
+    if(orderItems) {
+      if(this.examStorage(orderItems, chosenItem)) return;
+      orderItems.push({...chosenItem});
+      localStorage.setItem('orderItems', JSON.stringify(orderItems));
+    }
+  }
+
   setQuantityInStorage(product: Product, amount: number): void {
     const list = this.getLocalStorageItems();
     const productIndex = list.findIndex((item: Product) => product.name === item.name);
