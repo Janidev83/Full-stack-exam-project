@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
 
   setLocalStorage(index: number): void {
     const orderItems = this.StorageService.getLocalStorageItems();
-    const chosenItem = this.products[index];
+    const chosenItem = {...this.products[index], quantity: 1};
 
     if(!orderItems) {
       localStorage.setItem('orderItems', JSON.stringify([chosenItem]));

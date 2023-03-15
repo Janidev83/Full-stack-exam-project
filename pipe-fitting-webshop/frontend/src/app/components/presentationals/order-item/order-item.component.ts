@@ -9,30 +9,28 @@ export class OrderItemComponent implements OnInit {
 
   @Input() itemData: any;
   @Output() productAmount = new EventEmitter<any>();
-  childAmount: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.emitProductAmount();
   }
 
   decreaseAmount(): void {
-    if(this.childAmount !== 0) {
-      this.childAmount -= 1;
-      this.emitProductAmount('decrease');
+    if(this.itemData.quantity > 1) {
+      this.itemData.quantity -= 1;
+      this.emitProductAmount('', this.itemData.quantity);
     } else {
       this.emitProductAmount('delete');
     }
   }
 
   increaseAmount(): void {
-    this.childAmount += 1;
-    this.emitProductAmount('increase');
+    this.itemData.quantity += 1;
+    this.emitProductAmount('', this.itemData.quantity);
   }
 
-  emitProductAmount(operation?: string): void {
-    this.productAmount.emit({operation: operation, price: this.itemData.price, amount: this.childAmount});
+  emitProductAmount(operation?: string, amount?: number): void {
+    this.productAmount.emit({operation: operation, amount: amount});
   }
 
 }

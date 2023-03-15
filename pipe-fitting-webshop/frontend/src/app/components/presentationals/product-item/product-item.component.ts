@@ -18,6 +18,10 @@ export class ProductItemComponent implements OnInit {
   constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
+    this.setCard();
+  }
+
+  setCard(): void {
     const storageItems = this.storageService.getLocalStorageItems();
     if(storageItems) {
       this.storageContains = this.storageService.examStorage(storageItems, this.product);
@@ -26,7 +30,7 @@ export class ProductItemComponent implements OnInit {
 
   passIndex(): void {
     this.emitIndex.emit(this.index);
-    this.ngOnInit();
+    this.setCard();
   }
 
 }

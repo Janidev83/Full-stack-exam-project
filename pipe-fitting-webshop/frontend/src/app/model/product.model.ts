@@ -4,4 +4,5 @@ export interface Product {
   weldtech: string;
   price: number;
   imageUrl: string;
+  quantity?: number;
 }

@@ -11,27 +11,29 @@ import { StorageService } from 'src/app/service/storage/storage.service';
 })
 export class CartComponent implements OnInit {
   // localStorage-ből
-  itemsInStorage?: Array<Product> | undefined;
+  itemsInStorage?: Array<Product> | null;
 
-  totalPrice: number = 0;
-  amount: number = 0;
+  totalPrice?: number;
 
   constructor(private router: Router, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    if(this.storageService.getLocalStorageItems()) {
-      this.itemsInStorage = this.storageService.getLocalStorageItems();
-    }
+    this.setCartData();
+  }
+
+  setCartData(): void {
+    this.itemsInStorage = this.storageService.getLocalStorageItems() ? this.storageService.getLocalStorageItems() : null;
+    this.totalPrice = this.storageService.getTotalPrice();
   }
 
   getPrice(amountObj: any, index: number): any {
-    if(amountObj.operation === 'increase') {
-      this.totalPrice += amountObj.price;
-    } else if(amountObj.operation === 'decrease') {
-      this.totalPrice -= amountObj.price;
-    } else if (amountObj.operation === 'delete') {
-      this.deleteItemFromLocalStorage(index)
+    if(this.itemsInStorage && !amountObj.operation) {
+      this.storageService.setQuantityInStorage(this.itemsInStorage[index], amountObj.amount);
     }
+    if (amountObj.operation === 'delete') {
+      this.deleteItemFromLocalStorage(index);
+    }
+    this.setCartData();
   }
 
   sendOrder(): void {
@@ -39,12 +41,12 @@ export class CartComponent implements OnInit {
     if(confirmOrder) {
       console.log('rendelést el kell küldenünk most!');
       localStorage.clear();
+      this.storageService.addSumOfItems();
       this.router.navigate(['']);
     }
   }
 
   deleteItemFromLocalStorage(index: number): void {
-    console.log('Törölni a localStorageből az aktuális itemet!!!');
     const storageItems = this.storageService.getLocalStorageItems();
     if(storageItems) {
       if(storageItems.length > 0) {
@@ -53,10 +55,11 @@ export class CartComponent implements OnInit {
       };
       if(storageItems.length === 0) {
         localStorage.clear();
-        this.itemsInStorage = undefined;
       };
     }
-    this.ngOnInit();
+    this.storageService.addSumOfItems();
+    this.setCartData();
+
   }
 
 }
