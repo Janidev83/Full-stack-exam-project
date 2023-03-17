@@ -10,7 +10,7 @@ orderDataHandler.saveNewOrder = async (newOrder) => {
     try {
         mockDB.orders.push(newOrder);
         await writeFile(dbPath, JSON.stringify(mockDB, null, 2));
-    }catch(err) {
+    } catch(err) {
         // hibakezelést csinálni a http-errors-al
     }
 }

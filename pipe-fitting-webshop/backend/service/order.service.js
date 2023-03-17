@@ -9,13 +9,17 @@ orderService.save = (req, res) => {
     if(orderError) {
         // http-error hibaobjektum generálása
     }
-    const newOrder = {
-        number: generateOrderNumber(),
-        date: new Date().toUTCString(),
-        ...req.body
-    };
-    orderDataHandler.saveNewOrder(newOrder);
-    res.status(201).json({confirm: 'Order saved!'});
+    try {
+        const newOrder = {
+            number: generateOrderNumber(),
+            date: new Date().toUTCString(),
+            ...req.body
+        };
+        orderDataHandler.saveNewOrder(newOrder);
+        res.status(201).json({confirm: 'Order saved!'});
+    } catch(err) {
+        // http-error hibakezelés
+    }
 }
 
 module.exports = orderService;
