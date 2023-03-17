@@ -23,11 +23,20 @@ app.put('/update_account', (req, res) => {
 })
 
 app.get('/product', (req, res) => {
-    mockDB.products.splice(6);
-    res.status(200).json(mockDB.products);
+    const firstPage = mockDB.products.slice(0, 6);
+    res.status(200).json(firstPage);
+})
+
+app.use('/order', require('./controller/order.controller'));
+
+//* wrong url
+app.use((req, res) => {
+    res.send('Page not found!');
 })
 
 //* server start
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 })
+
+//* error

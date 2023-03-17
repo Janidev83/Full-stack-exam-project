@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product.model';
+import { OrderService } from 'src/app/service/order/order.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
 
 
@@ -13,9 +14,9 @@ export class CartComponent implements OnInit {
   // localStorage-ből
   itemsInStorage?: Array<Product> | null;
 
-  totalPrice?: number;
+  totalPrice!: number;
 
-  constructor(private router: Router, private storageService: StorageService) { }
+  constructor(private router: Router, private storageService: StorageService, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.setCartData();
@@ -39,7 +40,9 @@ export class CartComponent implements OnInit {
   sendOrder(): void {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder) {
-      console.log('rendelést el kell küldenünk most!');
+      this.orderService.saveOrder({deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
+        next: res => console.log(res)
+      });
       localStorage.clear();
       this.storageService.addSumOfItems();
       this.router.navigate(['']);

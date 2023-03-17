@@ -1,7 +1,7 @@
-import { environment } from './../../../environments/environment';
-import { Customer, LoginCustomer } from './../../model/customer.model';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Customer, LoginCustomer } from 'src/app/model/customer.model';
 import { Observable } from 'rxjs';
 import { LOGIN_URL, REGISTRATION_URL, UPDATE_URL } from 'src/app/constants/url.constants';
 
