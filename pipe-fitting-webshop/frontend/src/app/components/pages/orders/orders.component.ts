@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/model/order.model';
+import { OrderService } from 'src/app/service/order/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -15,19 +18,29 @@ export class OrdersComponent implements OnInit {
     paidAmount: 123321
   }
 
-  constructor() { }
+  orders$?: Observable<Array<Order>>;
+
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.updateOrders();
   }
 
-  deleteOrder(index: number): void {
+  deleteOrder(orderNumber?: number): void {
     const confirmDelete = confirm('Are you sure about canceling the order?');
     if(confirmDelete) {
-      console.log('Rendelést törölni!');
-      // törlés az adatbázisból
-      this.ordersList?.splice(index, 1);
-      // generálódjon újra a táblázat??
+      this.orderService.deleteOrder(orderNumber!).subscribe({
+        next: res => {
+          console.log(res);
+          this.updateOrders();
+        },
+        error: err => console.log(err)
+      })
     }
+  }
+
+  private updateOrders(): void {
+    this.orders$ = this.orderService.getOrders();
   }
 
 }

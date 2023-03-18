@@ -4,6 +4,7 @@ export interface LoginCustomer {
 }
 
 export interface Customer {
+  _id?: string;
   lastName: string;
   firstName: string;
   address: string;

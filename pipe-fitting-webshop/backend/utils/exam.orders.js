@@ -7,6 +7,16 @@ const generateOrderNumber = () => {
         newNumber = Math.floor(Math.random() * (1000000 - 100000) + 100000);
     }
     return newNumber;
+};
+
+// Később id validátor
+const examOrderNumber = (number) => {
+    let orderNumberError = '';
+    const data = mockDB.orders.find(data => data.number === number);
+    if(!data) {
+        orderNumberError = 'Number not found in database!';
+    }
+    return orderNumberError;
 }
 
 const numAlreadyExists = (number) => {
@@ -14,5 +24,6 @@ const numAlreadyExists = (number) => {
 };
 
 module.exports = {
-    generateOrderNumber
+    generateOrderNumber,
+    examOrderNumber
 };

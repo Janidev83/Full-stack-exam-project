@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer, LoginCustomer } from 'src/app/model/customer.model';
 import { Observable } from 'rxjs';
-import { LOGIN_URL, REGISTRATION_URL, UPDATE_URL } from 'src/app/constants/url.constants';
+import { LOGIN_URL, REGISTRATION_URL, UPDATE_URL, CUSTOMER_URL } from 'src/app/constants/url.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,6 @@ export class CustomerService {
   }
 
   update(updatedData: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`${this.BASE_URL}${UPDATE_URL}`, updatedData);
+    return this.http.put<Customer>(`${this.BASE_URL}${CUSTOMER_URL}${UPDATE_URL}`, updatedData);
   }
 }

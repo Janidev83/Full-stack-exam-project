@@ -17,4 +17,12 @@ export class OrderService {
   saveOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(`${this.BASE_URL}${ORDER_URL}`, order);
   }
+
+  getOrders(): Observable<Array<Order>> {
+    return this.http.get<Array<Order>>(`${this.BASE_URL}${ORDER_URL}`);
+  }
+
+  deleteOrder(number: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}${ORDER_URL}/${number}`);
+  }
 }

@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 //* endpoints
+// Később kitalálni, bemegy-e a customer végponthoz vagy önállóan működik
 app.post('/login', (req, res) => {
     console.log(req.method, req.url, req.body);
 });
@@ -18,9 +19,7 @@ app.post('/registration', (req, res) => {
     console.log(req.method, req.url, req.body);
 })
 
-app.put('/update_account', (req, res) => {
-    console.log(req.method, req.url, req.body);
-})
+app.use('/customer', require('./controller/customer.controller'));
 
 app.get('/product', (req, res) => {
     const firstPage = mockDB.products.slice(0, 6);

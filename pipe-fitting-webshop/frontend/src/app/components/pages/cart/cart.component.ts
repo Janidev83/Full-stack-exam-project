@@ -41,7 +41,9 @@ export class CartComponent implements OnInit {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder) {
       this.orderService.saveOrder({deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
-        next: res => console.log(res)
+        next: res => console.log(res),
+        error: err => console.log(err)
+
       });
       localStorage.clear();
       this.storageService.addSumOfItems();

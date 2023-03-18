@@ -1,12 +1,21 @@
 
 const orderValidator = (order) => {
-   let errorMessage = '';
+   let orderError = '';
    if(!order.deliveryAddress || !order.paidAmount) {
-    errorMessage = 'Body must contain delivery address and paid amount!';
+      orderError = 'Body must contain delivery address and paid amount!';
    }
-   return errorMessage;
+   return orderError;
+}
+
+const customerValidator = (customer) => {
+   let customerError = '';
+   if(!customer.lastName || !customer.firstName || !customer.address || !customer.email || !customer.password) {
+      customerError = 'Body must contain lastname, firstname, address, email and password!';
+   }
+   return customerError;
 }
 
 module.exports = {
-   orderValidator
+   orderValidator,
+   customerValidator
 };

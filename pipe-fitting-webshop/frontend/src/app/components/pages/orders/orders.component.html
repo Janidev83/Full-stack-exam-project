@@ -2,7 +2,7 @@
   <div class="container-sm">
     <div class="row justify-content-center">
       <div class="col-md-10 col-lg-10 col-xxl-8">
-        <table *ngIf="ordersList && ordersList.length !== 0 else dontHaveOrders" class="table table-striped rounded bg-white caption-top">
+        <table *ngIf="(orders$ | async) && (orders$ | async)?.length !== 0 else dontHaveOrders" class="table table-striped rounded bg-white caption-top">
           <caption class="text-center fs-3">Your Orders</caption>
           <thead>
             <tr>
@@ -14,12 +14,12 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <tr *ngFor="let order of ordersList; index as i">
-              <td scope="row">{{mintaOrder.number}}</td>
-              <td>{{mintaOrder.date | date: 'medium'}}</td>
-              <td>{{mintaOrder.delAddress}}</td>
-              <td>{{mintaOrder.paidAmount}}</td>
-              <td><button (click)="deleteOrder(i)" type="button" class="btn btn-danger">Delete</button></td>
+            <tr *ngFor="let order of (orders$ | async)">
+              <td scope="row">{{order.number}}</td>
+              <td>{{order.date | date: 'medium'}}</td>
+              <td>{{order.deliveryAddress}}</td>
+              <td>{{order.paidAmount}}</td>
+              <td><button (click)="deleteOrder(order.number)" type="button" class="btn btn-danger">Delete</button></td>
             </tr>
           </tbody>
         </table>

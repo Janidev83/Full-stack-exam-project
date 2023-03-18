@@ -56,7 +56,9 @@ export class RegistrationComponent implements OnInit {
 
   updateUser(form: NgForm): void {
     console.log('update:', form.value);
-    this.customerService.update(form.value).subscribe();
+    this.customerService.update(form.value).subscribe({
+      next: res => console.log(res)
+    });
     this.router.navigate(['']);
   }
 }
