@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const PORT = 3000;
+const morgan = require('morgan');
+const logger = require('./config/logger');
+const createError = require('http-errors');
 const app = express();
 const mockDB = require('./db/db');
 
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static('public'));
+app.use(express.static('../public'));
+
+app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
 
 //* endpoints
 // Később kitalálni, bemegy-e a customer végponthoz vagy önállóan működik
@@ -29,18 +34,18 @@ app.get('/product', (req, res) => {
 app.use('/order', require('./controller/order.controller'));
 
 //* wrong url
-app.use((req, res) => {
-    res.send('Page not found!');
+app.use((req, res, next) => {
+    logger.warn(`Bad request url: ${req.originalUrl}`);
+    next(new createError.BadRequest('Page not found!'));
 })
 
 //* error-handling
 app.use((err, req, res, next) => {
-    res.status(err.statusCode).json({error: err.message});
+    logger.error(`ERROR ${err.statusCode}: ${err.message}`);
+    res.status(err.statusCode).json({message: err.message});
 })
 
 //* server start
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 })
-
-//* error
