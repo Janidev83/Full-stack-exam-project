@@ -1,16 +1,17 @@
 const winston = require('winston');
+const config = require('config');
 const path = require('path');
 
 const transportOptions = {
     console: {
-        level: 'debug',
+        level: config.log_level_console,
         format: winston.format.combine(
             winston.format.colorize(),
             winston.format.simple()
         )
     },
     file: {
-        level: 'info',
+        level: config.log_level_file,
         filename: path.join(__dirname, '..', '..', 'logs', 'server.log'),
         format: winston.format.label()
     }

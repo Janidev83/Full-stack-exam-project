@@ -1,16 +1,26 @@
+const config = require('config');
 const express = require('express');
 const cors = require('cors');
-const PORT = 3000;
+const port = config.port;
 const morgan = require('morgan');
 const logger = require('./config/logger');
 const createError = require('http-errors');
-const app = express();
 const mockDB = require('./db/db');
+const mongoose = require('mongoose');
+const app = express();
+
+mongoose.connect(`mongodb+srv://${config.database.user}:${config.database.password}@${config.database.host}`)
+.then(() => {
+    logger.info('Mongodb connection successful!');
+}).catch(err => {
+    logger.error(err);
+    process.exit();
+})
 
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static('../public'));
+app.use(express.static('public'));
 
 app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
 
@@ -46,6 +56,6 @@ app.use((err, req, res, next) => {
 })
 
 //* server start
-app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
 })
