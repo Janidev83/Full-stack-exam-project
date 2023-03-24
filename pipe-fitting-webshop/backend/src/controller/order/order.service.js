@@ -1,6 +1,6 @@
-const orderDataHandler = require('../repository/order.repository');
-const { orderValidator } = require('../utils/validators');
-const { generateOrderNumber, examOrderNumber } = require('../utils/exam.orders');
+const orderDataHandler = require('./order.repository');
+const { orderValidator } = require('../../utils/validators');
+const { generateOrderNumber, examOrderNumber } = require('../../utils/exam.orders');
 
 const orderService = {};
 

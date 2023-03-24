@@ -1,10 +1,10 @@
-const mockDB = require('../db/db');
+const mockDB = require('../../db/db');
 const { writeFile } = require('fs').promises;
 const path = require('path');
 
 const orderDataHandler = {};
 
-const dbPath = path.join(__dirname, '../db', 'db.json');
+const dbPath = path.join(__dirname, '..', '..', 'db', 'db.json');
 
 orderDataHandler.saveNewOrder = async (newOrder) => {
     mockDB.orders.push(newOrder);

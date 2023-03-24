@@ -2,10 +2,10 @@
   "customers": [
     {
       "lastName": "Ambrus",
-      "firstName": "Janika",
+      "firstName": "Palika",
       "address": "1031 Budapest, Csónakház utca 9.",
       "email": "ambja1983@gmail.com",
-      "password": "janikavagyoknah"
+      "password": "palikavagyok"
     }
   ],
   "products": [
@@ -354,22 +354,16 @@
       "paidAmount": 1250
     },
     {
-      "number": 861026,
-      "date": "Sat, 18 Mar 2023 16:07:43 GMT",
-      "deliveryAddress": "1065 Budapest, Nánási út 132.",
-      "paidAmount": 940
-    },
-    {
-      "number": 123654,
-      "date": "Sat, 18 Mar 2023 16:16:58 GMT",
+      "number": 119719,
+      "date": "Fri, 24 Mar 2023 13:33:30 GMT",
       "deliveryAddress": "1065 Budapest, Nánási út 132.",
       "paidAmount": 1300
     },
     {
-      "number": 438505,
-      "date": "Sat, 18 Mar 2023 17:42:35 GMT",
+      "number": 876102,
+      "date": "Fri, 24 Mar 2023 13:36:12 GMT",
       "deliveryAddress": "1065 Budapest, Nánási út 132.",
-      "paidAmount": 1120
+      "paidAmount": 4660
     }
   ]
 }

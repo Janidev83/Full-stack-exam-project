@@ -31,7 +31,7 @@ app.get('/product', (req, res) => {
     res.status(200).json(firstPage);
 })
 
-app.use('/order', require('./controller/order.controller'));
+app.use('/order', require('./controller/order/order.controller'));
 
 //* wrong url
 app.use((req, res, next) => {
