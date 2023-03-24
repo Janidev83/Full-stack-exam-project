@@ -1,6 +1,6 @@
-const customerDataHandler = require('../repository/customer.repository');
-const { customerValidator } = require('../utils/validators');
-const { isRegistered } = require('../utils/exam.customers');
+const customerDataHandler = require('./customer.repository');
+const { customerValidator } = require('../../utils/validators');
+const { isRegistered } = require('../../utils/exam.customers');
 
 const customerService = {};
 

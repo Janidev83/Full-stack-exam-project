@@ -1,10 +1,10 @@
-const mockDB = require('../db/db');
+const mockDB = require('../../db/db');
 const { writeFile } = require('fs').promises;
 const path = require('path');
 
 const customerDataHandler = {};
 
-const dbPath = path.join(__dirname, '../db', 'db.json');
+const dbPath = path.join(__dirname, '..', '..', 'db', 'db.json');
 
 customerDataHandler.updateCustomer = async (customer) => {
     const mockDbCopy = {...mockDB};

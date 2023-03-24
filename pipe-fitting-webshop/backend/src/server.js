@@ -24,7 +24,7 @@ app.post('/registration', (req, res) => {
     console.log(req.method, req.url, req.body);
 })
 
-app.use('/customer', require('./controller/customer.controller'));
+app.use('/customer', require('./controller/customer/customer.controller'));
 
 app.get('/product', (req, res) => {
     const firstPage = mockDB.products.slice(0, 6);
