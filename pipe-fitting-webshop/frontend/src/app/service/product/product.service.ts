@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/model/product.model';
 import { Observable } from 'rxjs';
@@ -14,8 +14,10 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(`${this.BASE_URL}${PRODUCT_URL}`);
+  getProducts(volume: number): Observable<Array<Product>> {
+    let queryParams = new HttpParams().append('volume', volume);
+
+    return this.http.get<Array<Product>>(`${this.BASE_URL}${PRODUCT_URL}`, {params: queryParams});
   }
 
 }

@@ -15,7 +15,11 @@ export class ProductsComponent implements OnInit {
   constructor(private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
+    this.getProductsByPage(0);
+  }
+
+  getProductsByPage(skipVolume: number): void {
+    this.productService.getProducts(skipVolume).subscribe({
       next: res => this.products = res
     });
   }

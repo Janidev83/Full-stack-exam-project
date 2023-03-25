@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="position-absolute start-50 translate-middle-x mt-4">
-      <app-pagination></app-pagination>
+      <app-pagination (skipProductVolume)="getProductsByPage($event)"></app-pagination>
     </div>
   </div>
 </section>

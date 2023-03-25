@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
 
+  @Output() skipProductVolume = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  emitSkipAmount(amount: number): void {
+    this.skipProductVolume.emit(amount);
+  }
 }

@@ -36,10 +36,7 @@ app.post('/registration', (req, res) => {
 
 app.use('/customer', require('./controller/customer/customer.controller'));
 
-app.get('/product', (req, res) => {
-    const firstPage = mockDB.products.slice(0, 6);
-    res.status(200).json(firstPage);
-})
+app.use('/product', require('./controller/product/product.controller'));
 
 app.use('/order', require('./controller/order/order.controller'));
 

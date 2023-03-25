@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=develop node src/server.js",
-    "start:nodemon": "cross-env NODE_ENV=develop nodemon src/server.js",
+    "start": "cross-env NODE_ENV=develop node src/index.js",
+    "start:nodemon": "cross-env NODE_ENV=develop nodemon src/index.js",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
