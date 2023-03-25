@@ -4,7 +4,7 @@ const logger = require('../../config/logger');
 
 exports.find = async (req, res, next) => {
     const skipVolume = parseInt(req.query.volume);
-
+    //! http://localhost:3000/product/?volume=6 ---> tesztekhez, ha kell (pl.: 6), hibához pl.: > 48
     try {
         const products = await productRepository.find(skipVolume);
         logger.info(products);
