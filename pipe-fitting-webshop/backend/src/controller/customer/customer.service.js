@@ -1,27 +1,26 @@
-const customerDataHandler = require('./customer.repository');
-const { customerValidator } = require('../../utils/validators');
-const { isRegistered } = require('../../utils/exam.customers');
+const customerRepository = require('./customer.repository');
+const createError = require('http-errors');
+const logger = require('../../config/logger');
+const Customer = require('../../models/customer.model');
 
-const customerService = {};
-
-customerService.update = async (req, res) => {
-    const customerError = customerValidator(req.body);
-    const isDbContains = isRegistered(req.body);
-    if(customerError) {
-        // hibakezelés - valamelyik mezője hiányzik a frissítendő customernek
-        return
-    }
-    if(isDbContains) {
-        // hibakezelés - nem tartalmazza az adatbázis
-        return
-    }
+exports.update = async (req, res, next) => {
+    const customerId = req.params.id;
     try {
-        await customerDataHandler.updateCustomer(req.body);
-        res.status(200).json({confirm: 'Customer updated!'});
-    } catch(err) {
-        console.log(err);
-        res.status(500).json({error: 'Szerver oldali hiba!'});
-    }
-}
+        const validationError = new Customer(req.body).validateSync();
+        if(validationError) {
+            return next(new createError.BadRequest('Must be valid customer format!'));
+        }
 
-module.exports = customerService;
+        const updatedCustomer = await customerRepository.update(customerId, req.body);
+        if(!updatedCustomer) {
+            return next(new createError.NotFound(`Customer with ${customerId} not found!`));
+        }
+        logger.info('Customer updated!');
+        res.status(201).json(`Updated: ${updatedCustomer.firstName} ${updatedCustomer.lastName}`);
+    } catch(err) {
+        if(err.kind === 'ObjectId') {
+            return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
+        }
+        next(new createError.InternalServerError('Database error!'));
+    }
+};

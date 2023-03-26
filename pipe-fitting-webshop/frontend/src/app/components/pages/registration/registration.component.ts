@@ -57,9 +57,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   updateUser(form: NgForm): void {
-    console.log('update:', form.value);
-    this.customerService.update(form.value).subscribe({
-      next: res => console.log(res)
+    //! Regisztrált, beégetett id
+    //* Átvariálni, hogy a bejelentkezett user id-jét csapja hozzá
+    this.customerService.update('64208ed5dfec17a2401c342d', form.value).subscribe({
+      next: res => console.log(res),
+      error: err => console.log(err.error.message)
     });
     this.router.navigate(['']);
   }

@@ -30,9 +30,7 @@
         <input type="email" class="form-control" id="email" name="email"
         [(ngModel)]="newUserData.email"
         required
-        #emailInput="ngModel"
-        [ngStyle]="role === 'update_account' ? {'background-color': 'grey'} : {'background-color': 'none'}"
-        [disabled]="role === 'update_account'">
+        #emailInput="ngModel">
         <small *ngIf="emailInput.invalid && emailInput.dirty" class="text-danger">Enter your e-mail!</small>
       </div>
       <div class="mb-3">
