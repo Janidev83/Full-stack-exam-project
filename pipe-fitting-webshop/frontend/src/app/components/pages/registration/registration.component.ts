@@ -49,8 +49,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   registrateUser(form: NgForm): void {
-    console.log('registrate:', form.value);
-    this.customerService.register(form.value).subscribe();
+    this.customerService.register(form.value).subscribe({
+      next: res => console.log(res),
+      error: err => console.log(err.error.message)
+    });
     this.router.navigate(['']);
   }
 

@@ -1,3 +1,4 @@
+
 export interface LoginCustomer {
   email: string;
   password: string;
@@ -10,4 +11,5 @@ export interface Customer {
   address: string;
   email: string;
   password: string;
+  orders?: Array<string | null>;
 }

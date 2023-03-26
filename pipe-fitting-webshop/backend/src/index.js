@@ -25,14 +25,9 @@ app.use(express.static('public'));
 app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
 
 //* endpoints
-// Később kitalálni, bemegy-e a customer végponthoz vagy önállóan működik
-app.post('/login', (req, res) => {
-    console.log(req.method, req.url, req.body);
-});
+app.use('/login', require('./controller/login/login.controller'));
 
-app.post('/registration', (req, res) => {
-    console.log(req.method, req.url, req.body);
-})
+app.use('/registration', require('./controller/registration/registration.controller'));
 
 app.use('/customer', require('./controller/customer/customer.controller'));
 

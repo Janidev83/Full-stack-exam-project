@@ -1,4 +1,20 @@
 
+const loginDataValidator = (data) => {
+   let loginDataError = '';
+   
+   if(loginDataIsInvalid(data)) {
+      loginDataError = 'Logindata must contain email and password with string value';
+   }
+
+   return loginDataError;
+};
+
+const loginDataIsInvalid = (data) => {
+   return !data.email || !data.password || typeof data.email !== 'string' || typeof data.password !== 'string' ? true : false;
+};
+
+//* ------------------------------------------------------------------------------------------------------------
+
 const orderValidator = (order) => {
    let orderError = '';
    if(!order.deliveryAddress || !order.paidAmount) {
@@ -16,6 +32,8 @@ const customerValidator = (customer) => {
 }
 
 module.exports = {
+   loginDataValidator,
+
    orderValidator,
    customerValidator
 };

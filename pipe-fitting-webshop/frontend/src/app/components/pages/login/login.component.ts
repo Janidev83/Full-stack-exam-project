@@ -21,8 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(form: NgForm): void {
-    console.log(form.value);
-    this.customerService.login(form.value).subscribe();
+    this.customerService.login(form.value).subscribe({
+      next: res => console.log(res),
+      error: err => console.log(err.error.message)
+    });
     this.router.navigate(['']);
   }
 
