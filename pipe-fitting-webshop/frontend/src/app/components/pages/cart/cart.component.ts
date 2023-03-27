@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
   sendOrder(): void {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder) {
-      //! Regisztrált, beégetett id
+      //! Regisztrált, beégetett id ---> Nem kell ide id és cím, átvariálni a kérést, mert majd a payLoadból fűzzük hozzá a backenden
       //* Átvariálni, hogy a bejelentkezett user id-jét és címét beállítani
       this.orderService.saveOrder('6420791e903a505df216fec9', {deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
         next: res => console.log(res),

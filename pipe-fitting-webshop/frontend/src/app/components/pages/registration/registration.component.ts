@@ -57,8 +57,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   updateUser(form: NgForm): void {
-    //! Regisztrált, beégetett id
-    //* Átvariálni, hogy a bejelentkezett user id-jét csapja hozzá
+    //! Regisztrált, beégetett id ---> Nem kell ide id, átvariálni a kérést, mert majd a payLoadból fűzzük hozzá a backenden
     this.customerService.update('64208ed5dfec17a2401c342d', form.value).subscribe({
       next: res => console.log(res),
       error: err => console.log(err.error.message)
