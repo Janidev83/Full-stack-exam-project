@@ -1,33 +1,45 @@
-const orderDataHandler = require('./order.repository');
-const { orderValidator } = require('../../utils/validators');
+const orderRepository = require('./order.repository');
+const createError = require('http-errors');
+const logger = require('../../config/logger');
+const Order = require('../../models/order.model');
 const { generateOrderNumber, examOrderNumber } = require('../../utils/exam.orders');
+const { findById } = require('../../utils/exam.customers');
 
 const orderService = {};
 
-orderService.save = async (req, res) => {
-    const orderError = orderValidator(req.body);
-    if(orderError) {
-        // http-error hibaobjektum generálása - valamelyik mező hiányzik
-        return
-    }
+orderService.save = async (req, res, next) => {
+    const customerId = req.params.id;
     try {
+        const isregistered = await findById(customerId);    // instead of mongoose-id-validator not working cause of callbacks in repository layer, just with older verions of mongoose!  
+        if(!isregistered) {
+            return next(new createError.NotFound('Customer not registered yet!'));
+        }
+
         const newOrder = {
-            number: generateOrderNumber(),
+            number: await generateOrderNumber(),
             date: new Date().toUTCString(),
-            ...req.body
+            ...req.body,
+            customer: customerId
         };
-        await orderDataHandler.saveNewOrder(newOrder);
-        res.status(201).json(newOrder);
+
+        const validationError = new Order(newOrder).validateSync();
+        if(validationError) {
+            return next(new createError.BadRequest('Must be valid order format!'))
+        }
+
+        const savedOrder = await orderRepository.save(newOrder);
+        logger.info('New order saved!');
+        res.status(201).json(`Order saved: ${savedOrder.number}`);
     } catch(err) {
-        // http-error hibakezelés
-        console.log(err);
-        err.message = 'Nem sikerült!'
-        res.status(500).json({error: 'Szerver oldali hiba!'});
+        if(err.kind) {
+            return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
+        }
+        next(new createError.InternalServerError('Database error!'));
     }
 }
 
 orderService.getOrders = (req, res) => {
-    const orders = orderDataHandler.getOrders();
+    const orders = orderRepository.getOrders();
     if(!orders || orders.length === 0) {
         // hibakezelés
         res.status(500).json({error: 'Szerveroldali hiba vagy nincsenek még rendelések!'});
@@ -46,7 +58,7 @@ orderService.deleteOrder = async (req, res) => {
         return
     }
     try {
-        await orderDataHandler.deleteOrder(orderNumber);
+        await orderRepository.deleteOrder(orderNumber);
         res.status(200).json({confirm: 'Order deleted!'});
     } catch(err) {
         // hibakezelés

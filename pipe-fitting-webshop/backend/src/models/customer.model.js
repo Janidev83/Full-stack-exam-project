@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const idValidator = require('mongoose-id-validator');
 
-const customerSchema = mongoose.Schema({
+const CustomerSchema = mongoose.Schema({
     lastName: {
         type: String,
         required: [true, 'Missing lastname!']
@@ -28,5 +27,5 @@ const customerSchema = mongoose.Schema({
     }]
 }, {timestamps: true, versionKey: false});
 
-customerSchema.plugin(idValidator);
-module.exports = mongoose.model('Customer', customerSchema);
+
+module.exports = mongoose.model('Customer', CustomerSchema);

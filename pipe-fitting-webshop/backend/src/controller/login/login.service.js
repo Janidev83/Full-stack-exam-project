@@ -10,6 +10,7 @@ exports.findByEmail = async (req, res, next) => {
         }
 
         logger.info(loginCustomer);
+        //! Visszaküldeni a bejelentkezett megfelelő user adatokat, populálva a rendeléseivel
         res.status(200).json(loginCustomer.email);
     } catch(err) {
         next(new createError.InternalServerError('Database error!'));

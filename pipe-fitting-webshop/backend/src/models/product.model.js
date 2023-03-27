@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productSchema = mongoose.Schema({
+const ProductSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Missing product name!']
@@ -24,4 +24,4 @@ const productSchema = mongoose.Schema({
     }
 }, {timestamps: true, versionKey: false});
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('Product', ProductSchema);

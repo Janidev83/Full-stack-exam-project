@@ -40,7 +40,9 @@ export class CartComponent implements OnInit {
   sendOrder(): void {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder) {
-      this.orderService.saveOrder({deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
+      //! Regisztrált, beégetett id
+      //* Átvariálni, hogy a bejelentkezett user id-jét és címét beállítani
+      this.orderService.saveOrder('6420791e903a505df216fec9', {deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
         next: res => console.log(res),
         error: err => console.log(err.error.message)
       });

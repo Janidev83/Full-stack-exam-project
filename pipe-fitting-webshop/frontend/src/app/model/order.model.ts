@@ -4,4 +4,5 @@ export interface Order {
   date?: string;
   deliveryAddress: string;
   paidAmount: number;
+  customer?: string;
 }

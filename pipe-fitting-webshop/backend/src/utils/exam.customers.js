@@ -1,16 +1,11 @@
-const mockDB = require('../db/db');
+const Customer = require('../models/customer.model');
 
-const isRegistered = (user) => {
-    customerError = '';
-    // Id-re átírni majd
-    // most nevet sohasem változtasak tesztelésből!
-    const isSaved = mockDB.customers.find(customer => customer.lastName === user.lastName);
-    if(!isSaved) {
-        customerError = 'Customer not found in database!';
-    }
-    return customerError;
-}
+const findByEmail = (registrationEmail) => Customer.findOne({email: registrationEmail});
+
+const findById = (id) => Customer.findById(id);
+
 
 module.exports = {
-    isRegistered
+    findByEmail,
+    findById
 }

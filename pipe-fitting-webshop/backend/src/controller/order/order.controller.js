@@ -2,8 +2,8 @@ const express = require('express');
 const orderController = express.Router();
 const orderService = require('./order.service');
 
-orderController.post('/', (req, res) => {
-    orderService.save(req, res);
+orderController.post('/:id', (req, res, next) => {
+    return orderService.save(req, res, next);
 })
 
 orderController.get('/', (req, res) => {

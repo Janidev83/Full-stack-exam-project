@@ -15,7 +15,7 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   login(loginData: LoginCustomer): Observable<LoginCustomer> {
-    return this.http.post<LoginCustomer>(`${this.BASE_URL}${LOGIN_URL}`, loginData);
+    return this.http.post<Customer>(`${this.BASE_URL}${LOGIN_URL}`, loginData);
   }
 
   register(registrationData: Customer): Observable<Customer> {

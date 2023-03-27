@@ -14,8 +14,8 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  saveOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(`${this.BASE_URL}${ORDER_URL}`, order);
+  saveOrder(id: string, order: Order): Observable<Order> {
+    return this.http.post<Order>(`${this.BASE_URL}${ORDER_URL}/${id}`, order);
   }
 
   getOrders(): Observable<Array<Order>> {
