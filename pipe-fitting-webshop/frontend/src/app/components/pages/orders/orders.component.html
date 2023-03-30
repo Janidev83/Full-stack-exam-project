@@ -2,7 +2,7 @@
   <div class="container-sm">
     <div class="row justify-content-center">
       <div class="col-md-10 col-lg-10 col-xxl-8">
-        <table *ngIf="(orders$ | async) && (orders$ | async)?.length !== 0 else dontHaveOrders" class="table table-striped rounded bg-white caption-top">
+        <table *ngIf="orders && orders.length !== 0 else dontHaveOrders" class="table table-striped rounded bg-white caption-top">
           <caption class="text-center fs-3">Your Orders</caption>
           <thead>
             <tr>
@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <tr *ngFor="let order of (orders$ | async)">
+            <tr *ngFor="let order of orders">
               <td scope="row">{{order.number}}</td>
               <td>{{order.date | date: 'medium'}}</td>
               <td>{{order.deliveryAddress}}</td>
@@ -27,7 +27,7 @@
         <ng-template #dontHaveOrders>
           <div class="row">
             <p class="col fs-1 text-center">
-              You don't have orders yet!
+              {{orderProblem}}
             </p>
           </div>
         </ng-template>

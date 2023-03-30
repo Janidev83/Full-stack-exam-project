@@ -7,6 +7,9 @@ const logger = require('./config/logger');
 const createError = require('http-errors');
 const mockDB = require('./db/db');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
 const app = express();
 
 mongoose.connect(`mongodb+srv://${config.database.user}:${config.database.password}@${config.database.host}`)
@@ -23,6 +26,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //* endpoints
 app.use('/login', require('./controller/login/login.controller'));

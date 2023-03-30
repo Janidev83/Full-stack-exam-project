@@ -29,7 +29,7 @@ orderService.save = async (req, res, next) => {
 
         const savedOrder = await orderRepository.save(newOrder);
         logger.info('New order saved!');
-        res.status(201).json(`Order saved: ${savedOrder.number}`);
+        res.status(201).json({savedOrder: savedOrder.number});
     } catch(err) {
         if(err.kind) {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
@@ -38,17 +38,17 @@ orderService.save = async (req, res, next) => {
     }
 }
 
-orderService.getOrders = (req, res) => {
+orderService.getOrders = (req, res) => {//frontend miatt: res.status(200).json(orders)  vagy üres tömb, vagy lista, Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Not registrated user!
     const orders = orderRepository.getOrders();
-    if(!orders || orders.length === 0) {
+    if(!orders || orders.length === 0) {// hülyeség
         // hibakezelés
         res.status(500).json({error: 'Szerveroldali hiba vagy nincsenek még rendelések!'});
         return
     }
-    res.status(200).json(orders);
+    res.status(200).json(orders);// tömb - _id, number, date, deliveryAddress, paidAmount - így beállítani a lekérdezést
 }
 
-orderService.deleteOrder = async (req, res) => {
+orderService.deleteOrder = async (req, res) => {//frontend miatt: res.status(200).json({confirm: 'Order deleted!'}), Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Non-existent order!
     // átírni id-re
     const orderNumber = parseInt(req.params.number);
     const isInvalidNumber = examOrderNumber(orderNumber);

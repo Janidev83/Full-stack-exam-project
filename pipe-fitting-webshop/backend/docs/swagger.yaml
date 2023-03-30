@@ -1,0 +1,380 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Pipe Fitting Webshop
+  description: A way to buy polyetilen pipe fittings easily
+servers:
+  - url: http://localhost:3000
+paths:
+  /login:
+    post:
+      description: Send logindata - logging in
+      tags: 
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Customer datas returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  lastName:
+                    type: string
+                  firstName:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  accessToken:
+                    type: string
+                required:
+                  - _id
+                  - lastName
+                  - firstName
+                  - address
+                  - email
+                  - accessToken
+        '404':
+          description: User not found in database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /registration:
+    post:
+      description: Save userdata in database
+      tags:
+        - Registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Customer fullname returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  registered:
+                    type: string
+                    description: User fullname
+                required:
+                  - registered
+        '400':
+          description: Already registered or invalid customer format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customer_id}:
+    put:
+      description: Modify a user with the given ID
+      tags: 
+        - Customer
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid customer format or ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found in database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product:
+    get:
+      description: Return products by given amount
+      tags: 
+        - Product
+      parameters:
+        - name: volume
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect data
+      responses:
+        '200':
+          description: Returns a list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                required:
+                  - items
+        '404':
+          description: No more items in database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /order/{customer_id}:
+    get:
+      description: Return orders of user
+      tags:
+        - Order
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns list of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid user ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Create new order
+      tags:
+        - Order
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deliveryAddress:
+                  type: string
+                paidAmount:
+                  type: string
+              required:
+                - deliveryAddress
+                - paidAmount
+      responses:
+        '201':
+          description: Create new order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  savedOrder:
+                    type: integer
+                required:
+                  - savedOrder
+        '400':
+          description: Invalid order format or user ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found, maybe not registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /order/{order_id}:
+    delete:
+      description: Remove order
+      tags:
+        - Order
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Remove order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  confirm:
+                    type: string
+                required:
+                  - confirm
+        '400':
+          description: Invalid order ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Non-existent order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      required:
+        - lastName
+        - firstName
+        - address
+        - email
+      properties:
+        _id:
+          type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Product:
+      type: object
+      required:
+        - name
+        - manufacturer
+        - weldtech
+        - price
+        - imageUrl
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        manufacturer:
+          type: string
+        weldtech:
+          type: string
+        price:
+          type: integer
+        imageUrl:
+          type: string
+    Order:
+      type: object
+      required:
+        - _id
+        - number
+        - date
+        - deliveryAddress
+        - paidAmount
+      properties:
+        _id:
+          type: string
+        number:
+          type: integer
+        date:
+          type: string
+        deliveryAddress:
+          type: string
+        paidAmount:
+          type: integer
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string

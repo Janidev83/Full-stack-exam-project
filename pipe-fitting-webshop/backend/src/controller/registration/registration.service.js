@@ -18,7 +18,7 @@ exports.create = async (req, res, next) => {
 
         const savedCustomer = await registrationRepository.create(req.body);
         logger.info('New customer saved!');
-        res.status(201).json(`Registered: ${savedCustomer.firstName} ${savedCustomer.lastName}`);
+        res.status(201).json({registered: `${savedCustomer.firstName} ${savedCustomer.lastName}`});
     } catch(err) {
         next(new createError.InternalServerError('Database error!'));
     }

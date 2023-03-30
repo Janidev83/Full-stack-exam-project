@@ -349,12 +349,6 @@
   ],
   "orders": [
     {
-      "number": 522943,
-      "date": "Sat, 18 Mar 2023 16:03:55 GMT",
-      "deliveryAddress": "1065 Budapest, Nánási út 132.",
-      "paidAmount": 1250
-    },
-    {
       "number": 194090,
       "date": "Fri, 24 Mar 2023 14:18:46 GMT",
       "deliveryAddress": "1065 Budapest, Nánási út 132.",

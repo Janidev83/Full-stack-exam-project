@@ -16,7 +16,12 @@ exports.update = async (req, res, next) => {
             return next(new createError.NotFound(`Customer with ${customerId} not found!`));
         }
         logger.info('Customer updated!');
-        res.status(201).json(`Updated: ${updatedCustomer.firstName} ${updatedCustomer.lastName}`);
+        res.status(201).json({
+            _id: loginCustomer._id,
+            lastName: loginCustomer.lastName,
+            firstName: loginCustomer.firstName,
+            address: loginCustomer.address,
+            email: loginCustomer.email,});
     } catch(err) {
         if(err.kind === 'ObjectId') {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));

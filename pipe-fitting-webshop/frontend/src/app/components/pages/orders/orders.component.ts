@@ -18,7 +18,8 @@ export class OrdersComponent implements OnInit {
     paidAmount: 123321
   }
 
-  orders$?: Observable<Array<Order>>;
+  orders?: Array<Order>;
+  orderProblem: string = "You don't have orders yet!";
 
   constructor(private orderService: OrderService) { }
 
@@ -34,13 +35,19 @@ export class OrdersComponent implements OnInit {
           console.log(res);
           this.updateOrders();
         },
-        error: err => console.log(err)
+        error: err => console.log(err.error.message)
       })
     }
   }
 
   private updateOrders(): void {
-    this.orders$ = this.orderService.getOrders();
+    this.orderService.getOrders().subscribe({
+      next: res => this.orders = res,
+      error: err => {
+        console.log(err.error.message);
+        this.orderProblem = err.error.message;
+      }
+    });
   }
 
 }
