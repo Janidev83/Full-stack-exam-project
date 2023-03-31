@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const path = require('path');
 const logger = require('./config/logger');
 const createError = require('http-errors');
+const authHandler = require('./auth/authHandler');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./docs/swagger.yaml');
@@ -21,7 +22,7 @@ app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //* endpoints
-app.use('/login', require('./controller/login/login.controller'));
+app.post('/login', authHandler.login);
 
 app.use('/registration', require('./controller/registration/registration.controller'));
 
