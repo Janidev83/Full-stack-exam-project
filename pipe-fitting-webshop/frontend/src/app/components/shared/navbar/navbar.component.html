@@ -6,25 +6,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="!(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning" routerLink="/login" routerLinkActive="active-link">Login</a>
         </li>
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning logout-link" routerLink="" (click)="logout()">Logout</a>
         </li>
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="!(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning"  routerLink="/registration" routerLinkActive="active-link">Registration</a>
         </li>
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning"  routerLink="/update_account" routerLinkActive="active-link">Update Account</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-warning"  routerLink="/product" routerLinkActive="active-link">Products</a>
         </li>
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning"  routerLink="/order" routerLinkActive="active-link">Orders</a>
         </li>
-        <li *ngIf="loggedUser===true" class="nav-item">
+        <li *ngIf="(loggedInUser$ | async)" class="nav-item">
           <a class="nav-link text-warning"  routerLink="/cart" routerLinkActive="active-link"><i class="bi bi-cart4">
           </i><span class="ps-1">{{sumOfStorageItems}}</span>
           </a>

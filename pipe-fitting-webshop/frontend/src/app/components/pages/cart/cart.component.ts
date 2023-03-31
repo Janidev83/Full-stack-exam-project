@@ -46,7 +46,7 @@ export class CartComponent implements OnInit {
         next: res => console.log(res),
         error: err => console.log(err.error.message)
       });
-      localStorage.clear();
+      localStorage.removeItem('orderItems');
       this.storageService.addSumOfItems();
       this.router.navigate(['']);
     }
@@ -60,7 +60,7 @@ export class CartComponent implements OnInit {
         if(storageItems.length >= 1) localStorage.setItem('orderItems', JSON.stringify(storageItems));
       };
       if(storageItems.length === 0) {
-        localStorage.clear();
+        localStorage.removeItem('orderItems');
       };
     }
     this.storageService.addSumOfItems();

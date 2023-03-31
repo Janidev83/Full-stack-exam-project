@@ -12,6 +12,6 @@ export interface Customer {
   firstName: string;
   address: string;
   email: string;
-  password: string;
+  password?: string;
   orders?: Array<Order | null>;
 }
