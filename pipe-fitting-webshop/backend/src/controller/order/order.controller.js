@@ -10,7 +10,7 @@ orderController.get('/', (req, res) => {// customer :id
     orderService.getOrders(req, res);
 })
 
-orderController.delete('/:number', (req, res) => {// order :id
+orderController.delete('/:number', (req, res) => {// order :id, érkezzen a bodyban a customer id
     orderService.deleteOrder(req, res);
 })
 

@@ -22,7 +22,7 @@ export class OrderService {
     return this.http.get<Array<Order>>(`${this.BASE_URL}${ORDER_URL}`);
   }
 
-  deleteOrder(number: number): Observable<any> {
+  deleteOrder(number: number): Observable<any> {// bodyba beletenni a user id-t, átírni a swagger-t!
     return this.http.delete<any>(`${this.BASE_URL}${ORDER_URL}/${number}`);
   }
 }

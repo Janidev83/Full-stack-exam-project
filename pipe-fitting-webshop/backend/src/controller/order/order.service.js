@@ -45,7 +45,7 @@ orderService.getOrders = (req, res) => {//frontend miatt: res.status(200).json(o
         res.status(500).json({error: 'Szerveroldali hiba vagy nincsenek még rendelések!'});
         return
     }
-    res.status(200).json(orders);// tömb - _id, number, date, deliveryAddress, paidAmount - így beállítani a lekérdezést
+    res.status(200).json(orders);// tömb - _id, number, date, deliveryAddress, paidAmount - így beállítani a lekérdezést//! küldje vissza a customer id-ját is (swagger-t módosítani!)
 }
 
 orderService.deleteOrder = async (req, res) => {//frontend miatt: res.status(200).json({confirm: 'Order deleted!'}), Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Non-existent order!

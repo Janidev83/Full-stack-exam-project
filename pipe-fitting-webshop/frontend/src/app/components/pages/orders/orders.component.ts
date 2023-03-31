@@ -27,7 +27,7 @@ export class OrdersComponent implements OnInit {
     this.updateOrders();
   }
 
-  deleteOrder(orderNumber?: number): void {
+  deleteOrder(orderNumber?: number): void {// beletenni bodyba a user id-t
     const confirmDelete = confirm('Are you sure about canceling the order?');
     if(confirmDelete) {
       this.orderService.deleteOrder(orderNumber!).subscribe({
