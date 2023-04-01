@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   loginUser(form: NgForm): void {
     this.authService.login(form.value).subscribe({
-      next: res => console.log(res),
+      next: res => console.log('Customer successfully logged in!'),
       error: err => console.log(err.error.message)
     });
     this.router.navigate(['']);

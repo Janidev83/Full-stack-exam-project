@@ -47,6 +47,10 @@ export class AuthService {
     }));
   }
 
+  setUpdatedCustomer(data: Customer): void {
+    this._loggedInData$.next(data);
+  }
+
   logout() {
     this._loggedInData$.next(null);
   };

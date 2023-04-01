@@ -17,11 +17,13 @@ exports.update = async (req, res, next) => {
         }
         logger.info('Customer updated!');
         res.status(201).json({
-            _id: loginCustomer._id,
-            lastName: loginCustomer.lastName,
-            firstName: loginCustomer.firstName,
-            address: loginCustomer.address,
-            email: loginCustomer.email,});
+            _id: updatedCustomer._id,
+            lastName: updatedCustomer.lastName,
+            firstName: updatedCustomer.firstName,
+            address: updatedCustomer.address,
+            email: updatedCustomer.email,
+            orders: updatedCustomer.orders
+        });
     } catch(err) {
         if(err.kind === 'ObjectId') {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));

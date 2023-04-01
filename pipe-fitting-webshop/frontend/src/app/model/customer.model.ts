@@ -1,5 +1,3 @@
-import { Order } from "./order.model";
-
 
 export interface LoginCustomer {
   email: string;
@@ -13,5 +11,5 @@ export interface Customer {
   address: string;
   email: string;
   password?: string;
-  orders?: Array<Order | null>;
+  orders?: Array<string | null>;
 }

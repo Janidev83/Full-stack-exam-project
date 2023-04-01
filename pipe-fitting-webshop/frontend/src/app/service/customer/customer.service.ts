@@ -2,7 +2,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from 'src/app/model/customer.model';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { REGISTRATION_URL, CUSTOMER_URL } from 'src/app/constants/url.constants';
 import { AuthService } from '../auth/auth.service';
 
@@ -20,7 +20,13 @@ export class CustomerService {
   }
 
   update(id: string, updatedData: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`${this.BASE_URL}${CUSTOMER_URL}/${id}`, updatedData);
+    const headers = this.authService.setAuthentication();
+    return this.http.put<Customer>(`${this.BASE_URL}${CUSTOMER_URL}/${id}`, updatedData, {headers: headers})
+    .pipe(tap(customerRes => {
+      if(customerRes) {
+        this.authService.setUpdatedCustomer(customerRes);
+      }
+    }));
   }
 
 }

@@ -21,7 +21,8 @@ exports.login = async (req, res, next) => {
             lastName: user.lastName,
             firstName: user.firstName,
             address: user.address,
-            email: user.email
+            email: user.email,
+            orders: user.orders
         }, process.env.ACCESS_TOKEN_SECRET_KEY);
 
         logger.info('Customer successfully logged in!');
@@ -30,7 +31,8 @@ exports.login = async (req, res, next) => {
             lastName: user.lastName,
             firstName: user.firstName,
             address: user.address,
-            email: user.email
+            email: user.email,
+            orders: user.orders
         }});
 
     } catch(err) {

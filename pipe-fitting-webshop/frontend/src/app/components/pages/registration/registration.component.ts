@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 import { CustomerService } from 'src/app/service/customer/customer.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   newUserData = {
-    _id: this.oldUserData._id,
+    _id: '',
     lastName: '',
     firstName: '',
     address: '',
@@ -32,14 +33,21 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private authService: AuthService
     ) { }
 
   ngOnInit(): void {
     this.role = this.activatedRoute.snapshot.url[0].path;
 
     if(this.role === 'update_account') {
-      this.newUserData = {...this.oldUserData};
+      this.authService.loggedInData$.subscribe({
+        next: userData => {
+          if(userData) {
+            this.newUserData = {...this.newUserData, ...userData};
+          }
+        }
+      });
     }
   }
 
@@ -57,8 +65,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   updateUser(form: NgForm): void {
-    //! Regisztrált, beégetett id ---> Nem kell ide id, átvariálni a kérést, mert majd a payLoadból fűzzük hozzá a backenden
-    this.customerService.update('64208ed5dfec17a2401c342d', form.value).subscribe({
+    this.customerService.update(this.newUserData._id, form.value).subscribe({
       next: res => console.log(res),
       error: err => console.log(err.error.message)
     });
