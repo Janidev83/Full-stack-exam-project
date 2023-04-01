@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Customer } from 'src/app/model/customer.model';
 import { Product } from 'src/app/model/product.model';
+import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
 
 @Component({
@@ -13,19 +16,21 @@ export class ProductItemComponent implements OnInit {
   @Input() index!: number;
   @Output() emitIndex = new EventEmitter<number>();
   storageContains!: boolean;
+  loggedInUser$!: Observable<Customer | null>;
   loggedUser: boolean = true;
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.setCard();
   }
 
-  setCard(): void {
+  private setCard(): void {
     const storageItems = this.storageService.getLocalStorageItems('orderItems');
     if(storageItems) {
       this.storageContains = this.storageService.examStorage(storageItems, this.product);
     }
+    this.loggedInUser$ = this.authService.loggedInData$;
   }
 
   passIndex(): void {
