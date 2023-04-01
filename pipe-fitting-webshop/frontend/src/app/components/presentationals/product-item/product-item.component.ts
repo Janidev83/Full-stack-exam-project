@@ -17,7 +17,6 @@ export class ProductItemComponent implements OnInit {
   @Output() emitIndex = new EventEmitter<number>();
   storageContains!: boolean;
   loggedInUser$!: Observable<Customer | null>;
-  loggedUser: boolean = true;
 
   constructor(private storageService: StorageService, private authService: AuthService) { }
 
