@@ -31,7 +31,7 @@ app.use('/customer', authenticateJWT, require('./controller/customer/customer.co
 
 app.use('/product', require('./controller/product/product.controller'));
 
-app.use('/order', require('./controller/order/order.controller'));
+app.use('/order', authenticateJWT, require('./controller/order/order.controller'));
 
 //* wrong url
 // app.use((req, res, next) => {
