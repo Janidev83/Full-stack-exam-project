@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Customer, LoginCustomer } from 'src/app/model/customer.model';
 import { environment } from 'src/environments/environment';
-import { LOGIN_URL } from 'src/app/constants/url.constants';
+import { LOGIN_URL, CUSTOMER_URL } from 'src/app/constants/url.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,16 @@ export class AuthService {
       headers = headers.set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
     }
     return headers;
+  }
+
+  addCustomerData(): Observable<Customer> {
+    const headers = this.setAuthentication();
+    return this.http.get<Customer>(`${this.BASE_URL}${CUSTOMER_URL}`, {headers: headers})
+    .pipe(tap(response => {
+      if(response) {
+        this._loggedInData$.next(response);
+      }
+    }));
   }
 
   logout() {

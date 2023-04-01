@@ -11,15 +11,18 @@ export class StorageService {
 
   constructor() { }
 
-  getLocalStorageItems(): any {
-    const storageItems = localStorage.getItem('orderItems');
-    if(storageItems) {
+  getLocalStorageItems(key: string): any {
+    const storageItems = localStorage.getItem(key);
+    if(storageItems && key === 'accessToken') {
+      return storageItems;
+    }
+    if(storageItems && key === 'orderItems') {
       return JSON.parse(storageItems);
     };
   }
 
   setLocalStorage(index: number, items: Array<Product>): void {
-    const orderItems = this.getLocalStorageItems();
+    const orderItems = this.getLocalStorageItems('orderItems');
     const chosenItem = {...items[index], quantity: 1};
 
     if(!orderItems) {
@@ -33,14 +36,14 @@ export class StorageService {
   }
 
   setQuantityInStorage(product: Product, amount: number): void {
-    const list = this.getLocalStorageItems();
+    const list = this.getLocalStorageItems('orderItems');
     const productIndex = list.findIndex((item: Product) => product.name === item.name);
     list[productIndex].quantity = amount;
     localStorage.setItem('orderItems', JSON.stringify(list));
   }
 
   addSumOfItems(): void {
-    const sumOFItems = this.getLocalStorageItems() ? this.getLocalStorageItems().length : 0;
+    const sumOFItems = this.getLocalStorageItems('orderItems') ? this.getLocalStorageItems('orderItems').length : 0;
     this.sumOfCartItems$.next(sumOFItems);
   }
 
@@ -49,8 +52,8 @@ export class StorageService {
   }
 
   getTotalPrice(): number {
-    if(this.getLocalStorageItems()) {
-      return this.getLocalStorageItems()
+    if(this.getLocalStorageItems('orderItems')) {
+      return this.getLocalStorageItems('orderItems')
         .map((item: Product) => item.quantity ? item.price * item.quantity : 0)
         .reduce((acc: number, curr: number) => acc + curr, 0);
     }

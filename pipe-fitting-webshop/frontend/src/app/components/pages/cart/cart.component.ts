@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   }
 
   setCartData(): void {
-    this.itemsInStorage = this.storageService.getLocalStorageItems() ? this.storageService.getLocalStorageItems() : null;
+    this.itemsInStorage = this.storageService.getLocalStorageItems('orderItems') ? this.storageService.getLocalStorageItems('orderItems') : null;
     this.totalPrice = this.storageService.getTotalPrice();
   }
 
@@ -53,7 +53,7 @@ export class CartComponent implements OnInit {
   }
 
   deleteItemFromLocalStorage(index: number): void {
-    const storageItems = this.storageService.getLocalStorageItems();
+    const storageItems = this.storageService.getLocalStorageItems('orderItems');
     if(storageItems) {
       if(storageItems.length > 0) {
         storageItems.splice(index, 1);

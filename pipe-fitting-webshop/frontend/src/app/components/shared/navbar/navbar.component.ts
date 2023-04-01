@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Customer } from 'src/app/model/customer.model';
 import { AuthService } from 'src/app/service/auth/auth.service';
-import { CustomerService } from 'src/app/service/customer/customer.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
 
 @Component({
@@ -16,11 +15,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   storageSubscription?: Subscription;
   loggedInUser$!: Observable<Customer | null>;
 
-  constructor(private storageService: StorageService, private authService: AuthService, private customerService: CustomerService) { }
+  constructor(private storageService: StorageService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if(this.storageService.getLocalStorageItems()) {
-
+    if(this.storageService.getLocalStorageItems('accessToken')) {
+      this.authService.addCustomerData().subscribe();
     }
 
     this.setNavbar();

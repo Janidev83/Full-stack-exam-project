@@ -22,7 +22,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   setCard(): void {
-    const storageItems = this.storageService.getLocalStorageItems();
+    const storageItems = this.storageService.getLocalStorageItems('orderItems');
     if(storageItems) {
       this.storageContains = this.storageService.examStorage(storageItems, this.product);
     }
