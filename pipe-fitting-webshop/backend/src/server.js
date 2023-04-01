@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const logger = require('./config/logger');
+const authenticateJWT = require('./auth/authenticate');
 const createError = require('http-errors');
 const authHandler = require('./auth/authHandler');
 const swaggerUi = require('swagger-ui-express');
@@ -26,7 +27,7 @@ app.post('/login', authHandler.login);
 
 app.use('/registration', require('./controller/registration/registration.controller'));
 
-app.use('/customer', require('./controller/customer/customer.controller'));
+app.use('/customer', authenticateJWT, require('./controller/customer/customer.controller'));
 
 app.use('/product', require('./controller/product/product.controller'));
 

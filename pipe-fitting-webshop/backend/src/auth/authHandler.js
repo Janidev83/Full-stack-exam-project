@@ -18,7 +18,10 @@ exports.login = async (req, res, next) => {
 
         const accessToken = jwt.sign({
             _id: user._id,
-            address: user.address
+            lastName: user.lastName,
+            firstName: user.firstName,
+            address: user.address,
+            email: user.email
         }, process.env.ACCESS_TOKEN_SECRET_KEY);
 
         logger.info('Customer successfully logged in!');

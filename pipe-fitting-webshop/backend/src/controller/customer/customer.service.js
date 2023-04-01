@@ -29,3 +29,12 @@ exports.update = async (req, res, next) => {
         next(new createError.InternalServerError('Database error!'));
     }
 };
+
+exports.sendCustomerdataFromPayLoad = (req, res, next) => {
+    if(!req.customer) {
+        return next(new createError.NotFound('Missing customer metadata!'));
+    }
+
+    const customer = {...req.customer};
+    res.status(200).json(customer);
+};
