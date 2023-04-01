@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer } from 'src/app/model/customer.model';
@@ -22,7 +23,8 @@ export class CartComponent implements OnInit {
     private router: Router,
     private storageService: StorageService,
     private orderService: OrderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class CartComponent implements OnInit {
       localStorage.removeItem('orderItems');
       this.storageService.addSumOfItems();
       this.router.navigate(['']);
+      this.toastr.success('Order sent', 'Success');
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { CustomerService } from 'src/app/service/customer/customer.service';
 
@@ -26,7 +27,8 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -50,10 +52,12 @@ export class RegistrationComponent implements OnInit {
 
   registrateUser(form: NgForm): void {
     this.customerService.register(form.value).subscribe({
-      next: res => console.log(res),
-      error: err => console.log(err.error.message)
+      next: () => {
+        this.toastr.success('Registration successful', 'Registration');
+        this.router.navigate(['']);
+    },
+      error: err => this.toastr.error(err.error.message, 'ERROR')
     });
-    this.router.navigate(['']);
   }
 
   updateUser(form: NgForm): void {

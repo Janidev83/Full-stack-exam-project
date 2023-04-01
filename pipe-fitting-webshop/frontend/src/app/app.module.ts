@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { ProductItemComponent } from './components/presentationals/product-item/
 import { PaginationComponent } from './components/presentationals/pagination/pagination.component';
 import { OrderItemComponent } from './components/presentationals/order-item/order-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
