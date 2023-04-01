@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Customer } from 'src/app/model/customer.model';
 import { Product } from 'src/app/model/product.model';
+import { AuthService } from 'src/app/service/auth/auth.service';
 import { OrderService } from 'src/app/service/order/order.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
 
@@ -13,12 +15,19 @@ import { StorageService } from 'src/app/service/storage/storage.service';
 export class CartComponent implements OnInit {
   // localStorage-ből
   itemsInStorage?: Array<Product> | null;
-
   totalPrice!: number;
+  customer!: Customer | null;
 
-  constructor(private router: Router, private storageService: StorageService, private orderService: OrderService) { }
+  constructor(
+    private router: Router,
+    private storageService: StorageService,
+    private orderService: OrderService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
+    this.customer = this.authService.loggedUserData;
+
     this.setCartData();
   }
 
@@ -39,10 +48,8 @@ export class CartComponent implements OnInit {
 
   sendOrder(): void {
     const confirmOrder = confirm('Are you sure about sending the order?');
-    if(confirmOrder) {
-      //! Regisztrált, beégetett id ---> Nem kell ide id és cím, átvariálni a kérést, mert majd a payLoadból fűzzük hozzá a backenden
-      //* Átvariálni, hogy a bejelentkezett user id-jét és címét beállítani
-      this.orderService.saveOrder('6420791e903a505df216fec9', {deliveryAddress: '1065 Budapest, Nánási út 132.', paidAmount: this.totalPrice}).subscribe({
+    if(confirmOrder && this.customer?._id) {
+      this.orderService.saveOrder(this.customer?._id, {deliveryAddress: this.customer.address, paidAmount: this.totalPrice}).subscribe({
         next: res => console.log(res),
         error: err => console.log(err.error.message)
       });

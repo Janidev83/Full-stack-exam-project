@@ -15,6 +15,10 @@ export class AuthService {
   private _loggedInData$: BehaviorSubject<Customer | null> = new BehaviorSubject<Customer | null>(null);
   loggedInData$: Observable<Customer | null> = this._loggedInData$.asObservable();
 
+  get loggedUserData(): Customer | null {
+    return this._loggedInData$.value ? this._loggedInData$.value : null;
+  };
+
   constructor(private http: HttpClient) { }
 
   login(loginData: LoginCustomer): Observable<{accessToken: string; customer: Customer}> {
