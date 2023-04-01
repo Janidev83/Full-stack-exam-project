@@ -5,6 +5,7 @@ const Order = require('../../models/order.model');
 const { generateOrderNumber, examOrderNumber } = require('../../utils/exam.orders');
 const { findById } = require('../../utils/exam.customers');
 
+//! Ha megvan mind, átírni az adott rétegneveket exports-ra
 const orderService = {};
 
 orderService.save = async (req, res, next) => {
@@ -38,7 +39,7 @@ orderService.save = async (req, res, next) => {
     }
 }
 
-orderService.getOrders = (req, res) => {//frontend miatt: res.status(200).json(orders)  vagy üres tömb, vagy lista, Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Not registrated user!
+orderService.getOrders = (req, res, next) => {//frontend miatt: res.status(200).json(orders)  vagy üres tömb, vagy lista, Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Not registrated user!
     const orders = orderRepository.getOrders();
     if(!orders || orders.length === 0) {// hülyeség
         // hibakezelés
@@ -48,7 +49,7 @@ orderService.getOrders = (req, res) => {//frontend miatt: res.status(200).json(o
     res.status(200).json(orders);// tömb - _id, number, date, deliveryAddress, paidAmount - így beállítani a lekérdezést//! küldje vissza a customer id-ját is (swagger-t módosítani!)
 }
 
-orderService.deleteOrder = async (req, res) => {//frontend miatt: res.status(200).json({confirm: 'Order deleted!'}), Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Non-existent order!
+orderService.deleteOrder = async (req, res, next) => {//frontend miatt: res.status(200).json({confirm: 'Order deleted!'}), Database error - 500 fontos, frontenden ez a szöveg!, 400 - Invalid ObjectId!, 404 - Non-existent order!
     // átírni id-re
     const orderNumber = parseInt(req.params.number);
     const isInvalidNumber = examOrderNumber(orderNumber);

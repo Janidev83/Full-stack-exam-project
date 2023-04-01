@@ -5,6 +5,7 @@ const mockDB = require('../../db/db');
 const { writeFile } = require('fs').promises;
 const path = require('path');
 
+//! Ha megvan mind, átírni az adott rétegneveket exports-ra
 const orderRepository = {};
 
 const dbPath = path.join(__dirname, '..', '..', 'db', 'db.json');
