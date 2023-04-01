@@ -13,14 +13,6 @@ export class RegistrationComponent implements OnInit {
 
   role!: string;
 
-  oldUserData: any = {
-    _id: 'database id',
-    lastName: 'Ambrus',
-    firstName: 'János',
-    address: '1031 Budapest, Csónakház utca 9.',
-    email: 'ambja1983@gmail.com'
-  }
-
   newUserData = {
     _id: '',
     lastName: '',

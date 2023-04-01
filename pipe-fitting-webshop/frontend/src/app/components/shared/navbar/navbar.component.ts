@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    console.log('Ki akarok jelentkezni!!!');
     localStorage.clear();
     this.storageService.addSumOfItems();
     this.authService.logout();
