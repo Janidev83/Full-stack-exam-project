@@ -13,7 +13,7 @@ import { StorageService } from 'src/app/service/storage/storage.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  // localStorage-ből
+
   itemsInStorage?: Array<Product> | null;
   totalPrice!: number;
   customer!: Customer | null;
