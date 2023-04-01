@@ -12,21 +12,22 @@ import { AuthService } from '../auth/auth.service';
 export class OrderService {
 
   BASE_URL: string = environment.apiUrl;
-  headers: HttpHeaders
+  headers?: HttpHeaders;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.headers = this.authService.setAuthentication();
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   saveOrder(id: string, order: Order): Observable<Order> {
+    this.headers = this.authService.setAuthentication();
     return this.http.post<Order>(`${this.BASE_URL}${ORDER_URL}/${id}`, order, {headers: this.headers});
   }
 
   getOrders(): Observable<Array<Order>> {
+    this.headers = this.authService.setAuthentication();
     return this.http.get<Array<Order>>(`${this.BASE_URL}${ORDER_URL}`, {headers: this.headers});
   }
 
   deleteOrder(number: number): Observable<any> {
+    this.headers = this.authService.setAuthentication();
     return this.http.delete<any>(`${this.BASE_URL}${ORDER_URL}/${number}`, {headers: this.headers});
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order.model';
 import { OrderService } from 'src/app/service/order/order.service';
@@ -42,7 +42,10 @@ export class OrdersComponent implements OnInit {
 
   private updateOrders(): void {
     this.orderService.getOrders().subscribe({
-      next: res => this.orders = res,
+      next: res => {
+        this.orders = res;
+        console.log(res);
+      },
       error: err => {
         console.log(err.error.message);
         this.orderProblem = err.error.message;

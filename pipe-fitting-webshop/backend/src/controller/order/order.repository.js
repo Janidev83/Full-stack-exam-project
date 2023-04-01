@@ -22,9 +22,7 @@ orderRepository.save = (order) => {
     .then(() => newOrder);
 }
 
-orderRepository.getOrders = () => {
-    return mockDB.orders.slice();
-}
+orderRepository.getOrdersByUserId = id => Order.find({customer: id});
 
 orderRepository.deleteOrder = async (number) => {
     const mockDbCopy = {...mockDB};
