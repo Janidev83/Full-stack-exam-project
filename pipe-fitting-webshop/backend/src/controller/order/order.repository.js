@@ -16,7 +16,7 @@ exports.save = async (order) => {
     return savedOrder;
 }
 
-exports.getOrdersByUserId = id => Order.find({customer: id});
+exports.getOrdersByUserId = userId => Customer.findById(userId, {_id: 0, orders: 1}).populate('orders');
 
 exports.deleteOrder = async (orderId, customerId) => {
     const removedOrder = await Order.findByIdAndRemove(orderId);

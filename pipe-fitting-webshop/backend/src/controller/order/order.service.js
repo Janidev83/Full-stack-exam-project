@@ -46,7 +46,7 @@ exports.getOrders = async (req, res, next) => {
 
         const customerOrders = await orderRepository.getOrdersByUserId(customerId);
         logger.info(customerOrders);
-        res.status(200).json(customerOrders);
+        res.status(200).json(customerOrders.orders);
     } catch(err) {
         if(err.kind === 'ObjectId') {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
