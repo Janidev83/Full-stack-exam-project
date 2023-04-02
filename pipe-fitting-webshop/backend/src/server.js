@@ -33,11 +33,6 @@ app.use('/product', require('./controller/product/product.controller'));
 
 app.use('/order', authenticateJWT, require('./controller/order/order.controller'));
 
-//* wrong url
-// app.use((req, res, next) => {
-//     logger.warn(`Bad request url: ${req.originalUrl}`);
-//     next(new createError.BadRequest('Page not found!'));
-// })
 app.all('*' ,(req, res, next) => {
     logger.warn(`Bad request url: ${req.originalUrl}`);
     next(new createError.BadRequest('Page not found!'));

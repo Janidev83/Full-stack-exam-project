@@ -56,15 +56,27 @@ export class RegistrationComponent implements OnInit {
         this.toastr.success('Registration successful', 'Registration');
         this.router.navigate(['']);
     },
-      error: err => this.toastr.error(err.error.message, 'ERROR')
+      error: err => {
+        if(err.status === 403) {
+          this.toastr.error(err.error.message, 'ERROR');
+        }
+        this.toastr.error('Something went wrong');
+      }
     });
   }
 
   updateUser(form: NgForm): void {
     this.customerService.update(this.newUserData._id, form.value).subscribe({
-      next: res => console.log(res),
-      error: err => console.log(err.error.message)
+      next: () => {
+        this.toastr.success('Account updated');
+        this.router.navigate(['']);
+    },
+      error: err => {
+        if(err.status === 500) {
+          this.toastr.error('Server error');
+        }
+        this.toastr.error('Something went wrong');
+      }
     });
-    this.router.navigate(['']);
   }
 }

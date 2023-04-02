@@ -13,12 +13,12 @@ exports.create = async (req, res, next) => {
 
         const alreadyRegistered = await findByEmail(req.body.email);
         if(alreadyRegistered) {
-            return next(new createError.BadRequest('Already registered by this email!'));
+            return next(new createError.Forbidden('Already registered by this email!'));
         }
 
-        const savedCustomer = await registrationRepository.create(req.body);
+        await registrationRepository.create(req.body);
         logger.info('New customer saved!');
-        res.status(201).json({registered: `${savedCustomer.firstName} ${savedCustomer.lastName}`});
+        res.status(201).json({});
     } catch(err) {
         next(new createError.InternalServerError('Database error!'));
     }
