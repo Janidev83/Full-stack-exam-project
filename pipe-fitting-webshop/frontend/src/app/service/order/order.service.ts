@@ -26,8 +26,8 @@ export class OrderService {
     return this.http.get<Array<Order>>(`${this.BASE_URL}${ORDER_URL}`, {headers: this.headers});
   }
 
-  deleteOrder(number: number): Observable<any> {
+  deleteOrder(id: string): Observable<any> {
     this.headers = this.authService.setAuthentication();
-    return this.http.delete<any>(`${this.BASE_URL}${ORDER_URL}/${number}`, {headers: this.headers});
+    return this.http.delete<any>(`${this.BASE_URL}${ORDER_URL}/${id}`, {headers: this.headers});
   }
 }

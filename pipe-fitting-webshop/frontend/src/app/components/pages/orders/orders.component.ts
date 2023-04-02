@@ -27,19 +27,6 @@ export class OrdersComponent implements OnInit {
     this.updateOrders();
   }
 
-  deleteOrder(orderNumber?: number): void {
-    const confirmDelete = confirm('Are you sure about canceling the order?');
-    if(confirmDelete) {
-      this.orderService.deleteOrder(orderNumber!).subscribe({
-        next: res => {
-          console.log(res);
-          this.updateOrders();
-        },
-        error: err => console.log(err.error.message)
-      })
-    }
-  }
-
   private updateOrders(): void {
     this.orderService.getOrders().subscribe({
       next: res => {
@@ -51,6 +38,19 @@ export class OrdersComponent implements OnInit {
         this.orderProblem = err.error.message;
       }
     });
+  }
+
+  deleteOrder(orderId?: string): void {
+    const confirmDelete = confirm('Are you sure about canceling the order?');
+    if(confirmDelete) {
+      this.orderService.deleteOrder(orderId!).subscribe({
+        next: res => {
+          console.log(res);
+          this.updateOrders();
+        },
+        error: err => console.log(err.error.message)
+      })
+    }
   }
 
 }

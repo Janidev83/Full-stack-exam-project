@@ -1,34 +1,34 @@
 const Order = require('../../models/order.model');
 const Customer = require('../../models/customer.model');
+const createError = require('http-errors');
 
-const mockDB = require('../../db/db');
-const { writeFile } = require('fs').promises;
-const path = require('path');
 
-//! Ha megvan mind, átírni az adott rétegneveket exports-ra
-const orderRepository = {};
-
-const dbPath = path.join(__dirname, '..', '..', 'db', 'db.json');
-
-orderRepository.save = (order) => {
+exports.save = async (order) => {
     const newOrder = new Order(order);
+    const savedOrder = await newOrder.save();
 
-    return newOrder.save()
-    .then(() => Customer.findById(order.customer))
-    .then(person => {
-        person.orders.push(newOrder._id);
-        person.save();
-    })
-    .then(() => newOrder);
+    const customer = await Customer.findById(order.customer);
+    if(!customer) throw new createError.NotFound();
+
+    customer.orders.push(newOrder._id);
+    await customer.save();
+
+    return savedOrder;
 }
 
-orderRepository.getOrdersByUserId = id => Order.find({customer: id});
+exports.getOrdersByUserId = id => Order.find({customer: id});
 
-orderRepository.deleteOrder = async (number) => {
-    const mockDbCopy = {...mockDB};
-    const orderIndex = mockDbCopy.orders.findIndex(data => data.number === number);
-    mockDbCopy.orders.splice(orderIndex, 1);
-    await writeFile(dbPath, JSON.stringify(mockDbCopy, null, 2));
+exports.deleteOrder = async (orderId, customerId) => {
+    const removedOrder = await Order.findByIdAndRemove(orderId);
+    if(!removedOrder) throw new createError.NotFound();
+    
+    const customer = await Customer.findById(customerId);
+    if(!customer) throw new createError.NotFound();
+
+    const orderIndex = customer.orders.findIndex(objectId => orderId === objectId.toString());
+    if(orderIndex === -1) throw new createError.NotFound();
+
+    customer.orders.splice(orderIndex, 1);
+    customer.save();
+    return removedOrder;
 }
-
-module.exports = orderRepository;
