@@ -28,7 +28,7 @@ exports.save = async (req, res, next) => {
 
         await orderRepository.save(newOrder);
         logger.info('New order saved!');
-        res.status(201);
+        res.status(201).json({});
     } catch(err) {
         if(err.kind === 'ObjectId' && err.statusCode === 404) {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
@@ -46,6 +46,7 @@ exports.getOrders = async (req, res, next) => {
 
         const customerOrders = await orderRepository.getOrdersByUserId(customerId);
         logger.info(customerOrders);
+        console.log(customerOrders.orders);
         res.status(200).json(customerOrders.orders);
     } catch(err) {
         if(err.kind === 'ObjectId') {
@@ -70,7 +71,7 @@ exports.deleteOrder = async (req, res, next) => {
 
         await orderRepository.deleteOrder(orderId, customerId);
         logger.info('Order deleted!');
-        res.status(200).json({confirm: 'Order deleted!'});
+        res.status(200).json({});
     } catch (err) {
         if(err.kind === 'ObjectId' || err.statusCode === 404) {
             return next(new createError.BadRequest('Invalid customer - or order - ObjectId!'));

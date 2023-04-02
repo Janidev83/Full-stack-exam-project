@@ -53,10 +53,10 @@ export class CartComponent implements OnInit {
     if(confirmOrder && this.customer?._id) {
       this.orderService.saveOrder(this.customer?._id, {deliveryAddress: this.customer.address, paidAmount: this.totalPrice}).subscribe({
         error: err => {
-          if(err.statusCode === 404) {
+          if(err.status === 404) {
             this.toastr.error('You must registrate');
           };
-          if(err.statusCode === 404) {
+          if(err.status === 404) {
             this.toastr.error('Server error');
           };
           this.toastr.error('Something went wrong');
