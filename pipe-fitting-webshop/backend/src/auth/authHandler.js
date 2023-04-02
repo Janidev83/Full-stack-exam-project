@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { findByEmailPassword } = require('../utils/exam.customers');
 
 
-// login
 exports.login = async (req, res, next) => {
     if(!req.body.email || ! req.body.password) {
         return next(new createError.BadRequest('Missing email or password!'));
