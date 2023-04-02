@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,17 +16,30 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
   }
 
   loginUser(form: NgForm): void {
     this.authService.login(form.value).subscribe({
-      next: res => console.log('Customer successfully logged in!'),
-      error: err => console.log(err.error.message)
+      next: () => this.router.navigate(['']),
+      error: err => {
+        if(err.status === 400) {
+          this.toastr.error('Missing email or password');
+        };
+        if(err.status === 404) {
+          this.toastr.error('Invalid email or password');
+        };
+        if(err.status === 500) {
+          this.toastr.error('Server error');
+        };
+      }
     });
-    this.router.navigate(['']);
   }
 
 }

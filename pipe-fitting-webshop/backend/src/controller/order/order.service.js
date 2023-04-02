@@ -26,9 +26,9 @@ exports.save = async (req, res, next) => {
             return next(new createError.BadRequest('Must be valid order format!'))
         }
 
-        const savedOrder = await orderRepository.save(newOrder);
+        await orderRepository.save(newOrder);
         logger.info('New order saved!');
-        res.status(201).json({savedOrder: savedOrder.number});
+        res.status(201);
     } catch(err) {
         if(err.kind === 'ObjectId' && err.statusCode === 404) {
             return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
