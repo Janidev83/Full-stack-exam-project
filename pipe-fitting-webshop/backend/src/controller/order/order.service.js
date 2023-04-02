@@ -2,7 +2,7 @@ const orderRepository = require('./order.repository');
 const createError = require('http-errors');
 const logger = require('../../config/logger');
 const Order = require('../../models/order.model');
-const { generateOrderNumber, examOrderNumber } = require('../../utils/exam.orders');
+const { generateOrderNumber } = require('../../utils/exam.orders');
 const { findById } = require('../../utils/exam.customers');
 
 
@@ -38,8 +38,8 @@ exports.save = async (req, res, next) => {
 }
 
 exports.getOrders = async (req, res, next) => {
+    const customerId = req.customer._id;
     try {
-        const customerId = req.customer._id;
         if(!customerId) {
             return next(new createError.InternalServerError('Authentication error!'));
         }
@@ -48,13 +48,16 @@ exports.getOrders = async (req, res, next) => {
         logger.info(customerOrders);
         res.status(200).json(customerOrders);
     } catch(err) {
+        if(err.kind === 'ObjectId') {
+            return next(new createError.BadRequest(`Invalid ObjectId: ${customerId}!`));
+        }
         next(new createError.InternalServerError('Database error!'));
     }
 }
 
 exports.deleteOrder = async (req, res, next) => {
-    const orderId = req.params.id;
     try {
+        const orderId = req.params.id;
         const customerId = req.customer._id;
         if(!customerId) {
             return next(new createError.InternalServerError('Authentication error!'));
