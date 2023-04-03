@@ -21,11 +21,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(loginData: LoginCustomer): Observable<{accessToken: string; customer: Customer}> {
-    return this.http.post<{accessToken: string; customer: Customer}>(`${this.BASE_URL}${LOGIN_URL}`, loginData)
+  login(loginData: LoginCustomer): Observable<{accessToken: string; customer: Customer, refreshToken: string}> {
+    return this.http.post<{accessToken: string; customer: Customer, refreshToken: string}>(`${this.BASE_URL}${LOGIN_URL}`, loginData)
     .pipe(tap(loginResponse => {
-      if(loginResponse.accessToken) {
+      if(loginResponse.accessToken && loginResponse.refreshToken) {
         localStorage.setItem('accessToken', loginResponse.accessToken);
+        localStorage.setItem('refreshToken', loginResponse.refreshToken);
       }
       if(loginResponse.customer) {
         this._loggedInData$.next(loginResponse.customer);

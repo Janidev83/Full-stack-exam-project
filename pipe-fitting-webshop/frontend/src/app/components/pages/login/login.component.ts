@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       next: () => this.router.navigate(['']),
       error: err => {
         if(err.status === 400) {
-          this.toastr.error('Missing email or password');
+          this.toastr.error(err.error.message);
         };
         if(err.status === 404) {
           this.toastr.error('Invalid email or password');
