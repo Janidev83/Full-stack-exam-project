@@ -13,7 +13,7 @@ exports.update = async (req, res, next) => {
 
         const updatedCustomer = await customerRepository.update(customerId, req.body);
         if(!updatedCustomer) {
-            return next(new createError.NotFound(`Customer with ${customerId} not found!`));
+            return next(new createError.NotFound('Not registered user'));
         }
         logger.info('Customer updated!');
         res.status(201).json({
@@ -34,7 +34,7 @@ exports.update = async (req, res, next) => {
 
 exports.sendCustomerdataFromPayLoad = (req, res, next) => {
     if(!req.customer) {
-        return next(new createError.NotFound('Missing customer metadata!'));
+        return next(new createError.NotFound('Something went wrong'));
     }
 
     const customer = {...req.customer};

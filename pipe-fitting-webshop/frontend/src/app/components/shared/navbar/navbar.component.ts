@@ -23,7 +23,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if(this.storageService.getLocalStorageItems('accessToken')) {
-      this.authService.addCustomerData().subscribe();
+      this.authService.addCustomerData().subscribe({
+        error: err => this.toastr.error(err.message)
+      });
     }
 
     this.setNavbar();

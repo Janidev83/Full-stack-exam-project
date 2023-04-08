@@ -52,15 +52,7 @@ export class CartComponent implements OnInit {
     const confirmOrder = confirm('Are you sure about sending the order?');
     if(confirmOrder && this.customer?._id) {
       this.orderService.saveOrder(this.customer?._id, {deliveryAddress: this.customer.address, paidAmount: this.totalPrice}).subscribe({
-        error: err => {
-          if(err.status === 404) {
-            this.toastr.error('You must registrate');
-          };
-          if(err.status === 404) {
-            this.toastr.error('Server error');
-          };
-          this.toastr.error('Something went wrong');
-        }
+        error: err => this.toastr.error(err.message)
       });
       localStorage.removeItem('orderItems');
       this.storageService.addSumOfItems();

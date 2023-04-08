@@ -13,7 +13,7 @@ exports.create = async (req, res, next) => {
 
         const alreadyRegistered = await findByEmail(req.body.email);
         if(alreadyRegistered) {
-            return next(new createError.Forbidden('Already registered by this email!'));
+            return next(new createError[409]('Already registered by this email!'));
         }
 
         await registrationRepository.create(req.body);

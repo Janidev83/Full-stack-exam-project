@@ -28,17 +28,7 @@ export class LoginComponent implements OnInit {
   loginUser(form: NgForm): void {
     this.authService.login(form.value).subscribe({
       next: () => this.router.navigate(['']),
-      error: err => {
-        if(err.status === 400) {
-          this.toastr.error(err.error.message);
-        };
-        if(err.status === 404) {
-          this.toastr.error('Invalid email or password');
-        };
-        if(err.status === 500) {
-          this.toastr.error('Server error');
-        };
-      }
+      error: err => this.toastr.error(err.message)
     });
   }
 

@@ -32,8 +32,13 @@ export class AuthInterceptor implements HttpInterceptor {
           })
         )
       }
-
-      return throwError(() => new Error('Something went wrong'));
+      if(err.status === 401) {
+        return throwError(() => new Error('You must login first'));
+      }
+      if(err.status === 500 || err.status === 400) {
+        return throwError(() => new Error('Something went wrong'));
+      }
+      return throwError(() => new Error(err.error.message));
     }))
   }
 

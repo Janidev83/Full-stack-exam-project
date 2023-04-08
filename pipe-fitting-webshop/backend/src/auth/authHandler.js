@@ -91,7 +91,7 @@ exports.refresh = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
-        const {refreshToken} = req.body;//* Fontos a bejövő body elnevezés: refreshToken: 'seggg3526' pl.
+        const {refreshToken} = req.body;
         if(!refreshToken) {
             return next(new createError.Unauthorized('Unauthorized request'));
         }

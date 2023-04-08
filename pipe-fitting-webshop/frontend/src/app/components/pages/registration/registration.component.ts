@@ -56,12 +56,7 @@ export class RegistrationComponent implements OnInit {
         this.toastr.success('Registration successful', 'Registration');
         this.router.navigate(['']);
     },
-      error: err => {
-        if(err.status === 403) {
-          this.toastr.error(err.error.message, 'ERROR');
-        }
-        this.toastr.error('Something went wrong');
-      }
+      error: err => this.toastr.error(err.message)
     });
   }
 
@@ -71,12 +66,7 @@ export class RegistrationComponent implements OnInit {
         this.toastr.success('Account updated');
         this.router.navigate(['']);
     },
-      error: err => {
-        if(err.status === 500) {
-          this.toastr.error('Server error');
-        }
-        this.toastr.error('Something went wrong');
-      }
+      error: err => this.toastr.error(err.message)
     });
   }
 }

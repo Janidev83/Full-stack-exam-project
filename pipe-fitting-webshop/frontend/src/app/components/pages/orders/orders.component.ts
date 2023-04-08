@@ -38,12 +38,7 @@ export class OrdersComponent implements OnInit {
           this.toastr.warning('Order canceled');
           this.updateOrders();
         },
-        error: err => {
-          if(err.status === 500) {
-            this.toastr.error('Server error');
-          };
-          this.toastr.error('Something went wrong');
-        }
+        error: err => this.toastr.error(err.message)
       })
     }
   }
