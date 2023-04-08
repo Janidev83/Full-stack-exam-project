@@ -20,8 +20,7 @@ export class CustomerService {
   }
 
   update(id: string, updatedData: Customer): Observable<Customer> {
-    const headers = this.authService.setAuthentication();
-    return this.http.put<Customer>(`${this.BASE_URL}${CUSTOMER_URL}/${id}`, updatedData, {headers: headers})
+    return this.http.put<Customer>(`${this.BASE_URL}${CUSTOMER_URL}/${id}`, updatedData)
     .pipe(tap(customerRes => {
       if(customerRes) {
         this.authService.setUpdatedCustomer(customerRes);

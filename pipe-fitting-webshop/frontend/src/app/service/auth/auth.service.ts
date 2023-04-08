@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Customer, LoginCustomer } from 'src/app/model/customer.model';
@@ -55,17 +55,8 @@ export class AuthService {
     return this.http.post<{}>(`${this.BASE_URL}${LOGOUT_URL}`, {refreshToken});
   };
 
-  setAuthentication(): HttpHeaders {
-    let headers = new HttpHeaders();
-    if(localStorage.getItem('accessToken')) {
-      headers = headers.set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    }
-    return headers;
-  }
-
   addCustomerData(): Observable<Customer> {
-    const headers = this.setAuthentication();
-    return this.http.get<Customer>(`${this.BASE_URL}${CUSTOMER_URL}`, {headers: headers})
+    return this.http.get<Customer>(`${this.BASE_URL}${CUSTOMER_URL}`)
     .pipe(tap(response => {
       if(response) {
         this._loggedInData$.next(response);
