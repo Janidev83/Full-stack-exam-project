@@ -1,3 +1,4 @@
+const config = require('config');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -11,16 +12,18 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./docs/swagger.yaml');
 const app = express();
+const apiWrapper = express();
 
+apiWrapper.use('/api', app);
 
-app.use(cors());
+app.use(cors(config.cors.develop));
 app.use(express.json());
 
-app.use(express.static('public'));
+apiWrapper.use(express.static('public'));
 
 app.use(morgan('common', {stream: {write: message => logger.info(message)}}));
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+apiWrapper.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //* endpoints
 app.post('/login', authHandler.login);
@@ -35,7 +38,8 @@ app.use('/product', require('./controller/product/product.controller'));
 
 app.use('/order', authenticateJWT, require('./controller/order/order.controller'));
 
-app.all('*' ,(req, res, next) => {
+apiWrapper.all('*' ,(req, res, next) => {
+    //! Átírni a jegyzet alapján (sendFile), ha már le van buildelve
     logger.warn(`Bad request url: ${req.originalUrl}`);
     next(new createError.BadRequest('Page not found!'));
     res.redirect('/');
@@ -47,4 +51,4 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).json({message: err.message});
 });
 
-module.exports = app;
+module.exports = apiWrapper;
