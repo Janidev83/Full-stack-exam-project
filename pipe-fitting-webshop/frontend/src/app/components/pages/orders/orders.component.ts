@@ -25,7 +25,7 @@ export class OrdersComponent implements OnInit {
         this.orders = res;
       },
       error: err => {
-        this.orderProblem = err.error.message;
+        this.orderProblem = err.message;
       }
     });
   }

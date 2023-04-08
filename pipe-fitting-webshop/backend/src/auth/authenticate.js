@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY, (err, payLoad) => {
         if(err) {
-            return next(new createError.Forbidden('Invalid or expired access token!'));
+            return next(new createError.Forbidden('Invalid or expired access token'));
         }
 
         req.customer = payLoad;

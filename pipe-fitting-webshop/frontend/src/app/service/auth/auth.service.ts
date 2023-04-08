@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Customer, LoginCustomer } from 'src/app/model/customer.model';
 import { environment } from 'src/environments/environment';
-import { LOGIN_URL, CUSTOMER_URL } from 'src/app/constants/url.constants';
+import { LOGIN_URL, CUSTOMER_URL, REFRESH_URL, LOGOUT_URL } from 'src/app/constants/url.constants';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
     return this._loggedInData$.value ? this._loggedInData$.value : null;
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storageService: StorageService) { }
 
   login(loginData: LoginCustomer): Observable<{accessToken: string; customer: Customer, refreshToken: string}> {
     return this.http.post<{accessToken: string; customer: Customer, refreshToken: string}>(`${this.BASE_URL}${LOGIN_URL}`, loginData)
@@ -32,6 +33,26 @@ export class AuthService {
         this._loggedInData$.next(loginResponse.customer);
       }
     }));
+  };
+
+  refresh(): Observable<{accessToken: string}> {
+    const refreshToken = this.storageService.getLocalStorageItems('refreshToken');
+
+    return this.http.post<{accessToken: string}>(`${this.BASE_URL}${REFRESH_URL}`, {refreshToken})
+    .pipe(tap(tokenObj => {
+      if(tokenObj && tokenObj.accessToken) {
+        this.storageService.setToken('accessToken', tokenObj.accessToken)
+      }
+    }))
+  };
+
+  logout(): Observable<{}> {
+    const refreshToken = this.storageService.getLocalStorageItems('refreshToken');
+    localStorage.clear();
+    this._loggedInData$.next(null);
+    this.storageService.addSumOfItems();
+
+    return this.http.post<{}>(`${this.BASE_URL}${LOGOUT_URL}`, {refreshToken});
   };
 
   setAuthentication(): HttpHeaders {
@@ -56,7 +77,4 @@ export class AuthService {
     this._loggedInData$.next(data);
   }
 
-  logout() {
-    this._loggedInData$.next(null);
-  };
 }

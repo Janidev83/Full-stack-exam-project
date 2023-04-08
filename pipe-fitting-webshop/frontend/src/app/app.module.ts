@@ -16,8 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from './components/presentationals/product-item/product-item.component';
 import { PaginationComponent } from './components/presentationals/pagination/pagination.component';
 import { OrderItemComponent } from './components/presentationals/order-item/order-item.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from "ngx-toastr";
+import { AuthInterceptor } from 'src/interceptors/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { ToastrModule } from "ngx-toastr";
     HttpClientModule,
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

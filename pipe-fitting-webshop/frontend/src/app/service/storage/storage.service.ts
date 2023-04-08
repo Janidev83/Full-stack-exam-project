@@ -13,12 +13,16 @@ export class StorageService {
 
   getLocalStorageItems(key: string): any {
     const storageItems = localStorage.getItem(key);
-    if(storageItems && key === 'accessToken') {
+    if(storageItems && (key === 'accessToken' || key === 'refreshToken')) {
       return storageItems;
     }
     if(storageItems && key === 'orderItems') {
       return JSON.parse(storageItems);
     };
+  }
+
+  setToken(key: string, token: string): void {
+    localStorage.setItem(key, token)
   }
 
   setLocalStorage(index: number, items: Array<Product>): void {

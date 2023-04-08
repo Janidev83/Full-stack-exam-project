@@ -3,6 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Customer } from 'src/app/model/customer.model';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   storageSubscription?: Subscription;
   loggedInUser$!: Observable<Customer | null>;
 
-  constructor(private storageService: StorageService, private authService: AuthService) { }
+  constructor(private storageService: StorageService,
+    private authService: AuthService,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
     if(this.storageService.getLocalStorageItems('accessToken')) {
@@ -26,10 +30,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    localStorage.clear();
-    this.storageService.addSumOfItems();
-    this.authService.logout();
-    this.setNavbar();
+    this.authService.logout().subscribe({
+      error: err => this.toastr.error(err.message),
+      complete: () => this.setNavbar()
+    });
   }
 
   private setNavbar() {
