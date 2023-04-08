@@ -4,13 +4,13 @@ info:
   title: Pipe Fitting Webshop
   description: A way to buy polyetilen pipe fittings easily
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/api
 paths:
   /login:
     post:
       description: Send logindata - logging in
       tags: 
-        - Login
+        - Authorization
       requestBody:
         required: true
         content:
@@ -33,57 +33,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  _id:
-                    type: string
-                  lastName:
-                    type: string
-                  firstName:
-                    type: string
-                  address:
-                    type: string
-                  email:
-                    type: string
                   accessToken:
                     type: string
-                required:
-                  - _id
-                  - lastName
-                  - firstName
-                  - address
-                  - email
-                  - accessToken
-        '404':
-          description: User not found in database
+                  customer:
+                    type: object
+                    $ref: '#/components/schemas/Customer'
+                  refreshToken:
+                    type: string
+        '400':
+          description: Missing email or password or invalid token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /registration:
-    post:
-      description: Save userdata in database
-      tags:
-        - Registration
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '201':
-          description: Customer fullname returned successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  registered:
-                    type: string
-                    description: User fullname
-                required:
-                  - registered
-        '400':
-          description: Already registered or invalid customer format
+        '404':
+          description: User not found in database
           content:
             application/json:
               schema:
@@ -94,9 +58,158 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /refresh:
+    post:
+      description: Refreshing expired accessToken
+      tags:
+        - Authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+                - refreshToken
+      responses:
+        '200':
+          description: Returns new accesstoken
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                required:
+                  - accessToken
+        '401':
+          description: Unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logout:
+    post:
+      description: User logout
+      tags:
+        - Authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+                - refreshToken
+      responses:
+        '200':
+          description: Remove refreshtoken from database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ...
+        '401':
+          description: Unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /registration:
+    post:
+      description: New user registration
+      tags:
+        - Registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Save new user, returns empty object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ...
+        '400':
+          description: Invalid customer format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Already registered before
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer:
+    get:
+      description: Return userdata
+      security:
+        - bearerAuth: []
+      tags:
+        - Customer
+      responses:
+        '200':
+          description: Returns userdata object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_payload'
+        '404':
+          description: Not registered user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /customer/{customer_id}:
     put:
       description: Modify a user with the given ID
+      security:
+        - bearerAuth: []
       tags: 
         - Customer
       parameters:
@@ -113,19 +226,19 @@ paths:
               $ref: '#/components/schemas/User'
       responses:
         '201':
-          description: User has been updated successfully
+          description: Returns the updated user
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Customer'
         '400':
-          description: Invalid customer format or ID
+          description: Invalid customer format or id
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Not found in database
+          description: Not registered user
           content:
             application/json:
               schema:
@@ -171,17 +284,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /order/{customer_id}:
+  /order:
     get:
       description: Return orders of user
+      security:
+        - bearerAuth: []
       tags:
         - Order
-      parameters:
-        - name: customer_id
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Returns list of orders
@@ -197,20 +306,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '404':
-          description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         '500':
           description: Database error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /order/{customer_id}:
     post:
       description: Create new order
+      security:
+        - bearerAuth: []
       tags:
         - Order
       parameters:
@@ -229,22 +335,19 @@ paths:
                 deliveryAddress:
                   type: string
                 paidAmount:
-                  type: string
+                  type: integer
               required:
                 - deliveryAddress
                 - paidAmount
       responses:
         '201':
-          description: Create new order
+          description: Save new order, returns empty object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  savedOrder:
-                    type: integer
-                required:
-                  - savedOrder
+                  ...
         '400':
           description: Invalid order format or user ID
           content:
@@ -265,7 +368,9 @@ paths:
                 $ref: '#/components/schemas/Error'
   /order/{order_id}:
     delete:
-      description: Remove order
+      description: Disband order
+      security:
+        - bearerAuth: []
       tags:
         - Order
       parameters:
@@ -276,16 +381,13 @@ paths:
             type: string
       responses:
         '200':
-          description: Remove order
+          description: Order deleted, returns empty object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  confirm:
-                    type: string
-                required:
-                  - confirm
+                  ...
         '400':
           description: Invalid order ID
           content:
@@ -293,7 +395,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Non-existent order
+          description: Non-existent order or invalid user
           content:
             application/json:
               schema:
@@ -318,6 +420,27 @@ components:
         - firstName
         - address
         - email
+        - password
+      properties:
+        lastName:
+          type: string
+        firstName:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Customer:
+      type: object
+      required:
+        - _id
+        - lastName
+        - firstName
+        - address
+        - email
+        - orders
       properties:
         _id:
           type: string
@@ -329,16 +452,51 @@ components:
           type: string
         email:
           type: string
-        password:
+        orders:
+          type: array
+          items:
+            type: string
+    Customer_payload:
+      type: object
+      required:
+        - _id
+        - lastName
+        - firstName
+        - address
+        - email
+        - orders
+        - iat
+        - exp
+      properties:
+        _id:
           type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        orders:
+          type: array
+          items:
+            type: string
+        iat:
+          type: integer
+        exp:
+          type: integer
     Product:
       type: object
       required:
+        - _id
         - name
         - manufacturer
         - weldtech
         - price
         - imageUrl
+        - createdAt
+        - updatedAt
       properties:
         _id:
           type: string
@@ -352,6 +510,10 @@ components:
           type: integer
         imageUrl:
           type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
     Order:
       type: object
       required:
@@ -360,6 +522,9 @@ components:
         - date
         - deliveryAddress
         - paidAmount
+        - customer
+        - createdAt
+        - updatedAt
       properties:
         _id:
           type: string
@@ -371,6 +536,12 @@ components:
           type: string
         paidAmount:
           type: integer
+        customer:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
     Error:
       type: object
       required:
