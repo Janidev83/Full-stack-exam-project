@@ -10,8 +10,11 @@ orderRepository.save = jest.fn(order => {
 });
 
 orderRepository.getOrdersByUserId = jest.fn(id => {
+    const populatedOrders = {
+        orders: mockData.filter(order => order.customerId === id)
+    };
 
-    return Promise.resolve(mockData.filter(order => order.customerId === id));
+    return Promise.resolve(populatedOrders);
 });
 
 orderRepository.deleteOrder = jest.fn(id => {
@@ -21,6 +24,11 @@ orderRepository.deleteOrder = jest.fn(id => {
     
     return Promise.resolve(order);
 });
+
+orderRepository.findOrderByNumber = jest.fn(num => {
+
+    return Promise.resolve(null);
+})
 
 orderRepository.__setMockData = data => {
     mockData = data;
