@@ -32,3 +32,5 @@ exports.deleteOrder = async (orderId, customerId) => {
     customer.save();
     return removedOrder;
 }
+
+exports.findOrderByNumber = (num) => Order.findOne({number: num});

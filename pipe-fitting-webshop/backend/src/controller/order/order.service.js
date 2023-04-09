@@ -3,14 +3,14 @@ const createError = require('http-errors');
 const logger = require('../../config/logger');
 const Order = require('../../models/order.model');
 const { generateOrderNumber } = require('../../utils/exam.orders');
-const { findById } = require('../../utils/exam.customers');
+const { findById } = require('../customer/customer.repository');
 
 
 exports.save = async (req, res, next) => {
     const customerId = req.params.id;
     try {
-        const isregistered = await findById(customerId);    // instead of mongoose-id-validator not working cause of callbacks in repository layer, just with older verions of mongoose!  
-        if(!isregistered) {
+        const isRegistered = await findById(customerId);    // instead of mongoose-id-validator not working cause of callbacks in repository layer, just with older verions of mongoose!  
+        if(!isRegistered) {
             return next(new createError.NotFound('Customer not registered yet!'));
         }
 

@@ -2,7 +2,7 @@ const registrationRepository = require('../registration/registration.repository'
 const createError = require('http-errors');
 const logger = require('../../config/logger');
 const Customer = require('../../models/customer.model');
-const { findByEmail } = require('../../utils/exam.customers');
+const { findByEmail } = require('../customer/customer.repository');
 
 exports.create = async (req, res, next) => {
     try {
