@@ -2,7 +2,7 @@ const orderRepository = require('./order.repository');
 const createError = require('http-errors');
 const logger = require('../../config/logger');
 const Order = require('../../models/order.model');
-const { generateOrderNumber } = require('../../utils/exam.orders');
+const { generateOrderNumber } = require('../../utils/orderHandler');
 const { findById } = require('../customer/customer.repository');
 
 

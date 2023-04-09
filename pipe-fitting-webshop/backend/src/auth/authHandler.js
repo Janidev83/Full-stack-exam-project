@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const logger = require('../config/logger');
 const jwt = require('jsonwebtoken');
 const { findByEmailPassword } = require('../controller/customer/customer.repository');
-const { saveToken, findToken, findIdOfToken, removeTokenById } = require('../utils/exam.token');
+const { saveToken, findToken, findIdOfToken, removeTokenById } = require('../utils/tokenHandler');
 
 
 exports.login = async (req, res, next) => {
