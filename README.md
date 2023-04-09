@@ -40,20 +40,22 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 ## Alkalmazás megnyitása
 - [Csőidom Webshop](https://pages.github.com/) - VÉGLEGESET MEGADNI MAJD!!!JANI
 ## Swagger megnyitása
-- [Swagger](https://pages.github.com/) - VÉGLEGESET MEGADNI MAJD!!!JANI
+- [Swagger](https://localhost:3000/api-docs) - VÉGLEGESET MEGADNI MAJD!!!JANI
 ## Alkalmazás leállítása
 - **/frontend** mappába belépni *cd frontend* ---> terminálban: docker compose down
 
 ## Végpontok dokumentációja
 ### [Swagger](https://pages.github.com/)
-- POST/login - felhasználó bejelentkezése
+- POST/login - felhasználó bejelentkezés
+- POST/refresh - felhasználó access tokenjének frissítése
+- POST/logout - felhasználó kijelentkezés
 - POST/registration - új felhasználó adatbázisba mentése
-- GET/update_account - bejelentkezett felhasználó regisztrációs adatainak lekérése jelszó kivételével
-- PUT/update_account - bejelentkezett felhasználó regisztrációs adatainak módosítása
+- GET/customer - bejelentkezett felhasználó regisztrációs adatainak lekérése jelszó kivételével
+- PUT/customer/customer_id - bejelentkezett felhasználó regisztrációs adatainak módosítása
 - GET/product - aruház által forgalmazott termékek adatainak lekérése
 - GET/order - bejelentkezett felhasználó által elküldött rendelések lekérése
-- DELETE/order - bejelentkezett felhasználó által elküldött rendelések visszavonása, törlése
-- POST/order - bejelentkezett felhasználó által összeállított rendelés elmentése az orders kollekcióba
+- POST/order/customer_id - bejelentkezett felhasználó által összeállított rendelés elmentése az orders kollekcióba
+- DELETE/order/order_id - bejelentkezett felhasználó által elküldött rendelések visszavonása, törlése
 
 ## Integrációs tesztek futtatása
 - Lsd. - Alkalmazás telepítése, indítása
@@ -73,25 +75,32 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - **customer**
     - Felhasználó ill. ügyfél, aki regisztráció majd bejelentkezés után vásárolhat különböző termékeket.
     - Adatok tárolása
-        - név
+        - vezetéknév
+        - keresztnév
         - szállítási cím
         - email
         - jelszó
+        - rendelések azonosítói
 - **product**
     - Árucikk, melyet a webáruház forgalmaz
     - Adatok tárolása
-        - név
+        - idomnév
         - gyártó
         - hegeszthetőségi technológia
         - ár
         - *szerveren tárolt* kép url-je
 - **order**
-    - Adott ügyfél által elküldött rendelés
+    - Ügyfél által elküldött rendelés
     - Adatok tárolása
         - rendelés száma
         - leadás dátuma
-        - ügyfél azonosítója
+        - szállítási cím
         - végösszeg
+        - ügyfél azonosítója
+- **token**
+    - Bejelentkezett felhasználók refresh tokenei
+    - Adatok tárolása
+        - refresh token
 
 ## User Story-k
 ### Navbar
