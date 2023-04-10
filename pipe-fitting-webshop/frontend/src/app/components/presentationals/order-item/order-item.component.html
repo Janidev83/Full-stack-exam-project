@@ -6,7 +6,7 @@
           <img [src]="itemData.imageUrl" class="img-fluid p-2" alt="coupler">
         </div>
         <div class="col-3 text-center">{{itemData.name}}</div>
-        <div class="col-3 text-center">{{itemData.price}} HUF / piece</div>
+        <div class="col-3 text-center">{{itemData.price | hufCurrency}} / piece</div>
         <div class="col-4 text-center">
           <span (click)="decreaseAmount()" class="me-1" type="button"><i class="bi bi-dash-circle"></i></span>
           <input type="text" [value]="itemData.quantity" disabled>

@@ -19,6 +19,12 @@ import { OrderItemComponent } from './components/presentationals/order-item/orde
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from "ngx-toastr";
 import { AuthInterceptor } from 'src/interceptors/authentication.interceptor';
+import { CurrencyPipe } from '@angular/common';
+import { HufCurrencyPipe } from './pipes/hufcurrency.pipe';
+import { registerLocaleData } from '@angular/common';
+import localeHu from '@angular/common/locales/hu';
+
+registerLocaleData(localeHu, 'hu-HU');
 
 @NgModule({
   declarations: [
@@ -33,7 +39,8 @@ import { AuthInterceptor } from 'src/interceptors/authentication.interceptor';
     CartComponent,
     ProductItemComponent,
     PaginationComponent,
-    OrderItemComponent
+    OrderItemComponent,
+    HufCurrencyPipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,8 @@ import { AuthInterceptor } from 'src/interceptors/authentication.interceptor';
     ToastrModule.forRoot(),
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })
