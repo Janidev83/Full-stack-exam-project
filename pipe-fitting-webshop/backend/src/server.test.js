@@ -171,4 +171,25 @@ describe('REST API integration tests', ()=> {
         expect(response.body.email).toBe(savedCustomers[0].email);
         expect(response.body.orders).toEqual(savedCustomers[0].orders);
     });
+
+    test('GET /customer endpoint', async () => {
+        const savedCustomers = await Customer.insertMany(insertData.customers);
+        const loginResponse = await supertest(app).post('/api/login')
+        .send({
+            email: "kbela@gmail.com",
+            password: "belus25"
+        });
+        ACCESS_TOKEN = loginResponse.body.accessToken;
+        REFRESH_TOKEN = loginResponse.body.refreshToken;
+
+        const response = await supertest(app).get('/api/customer').set('Authorization', `Bearer ${ACCESS_TOKEN}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body._id).toBe(savedCustomers[0]._id.toString());
+        expect(response.body.lastName).toBe(insertData.customers[0].lastName);
+        expect(response.body.firstName).toBe(insertData.customers[0].firstName);
+        expect(response.body.address).toBe(insertData.customers[0].address);
+        expect(response.body.email).toBe(insertData.customers[0].email);
+        expect(response.body.orders).toEqual(savedCustomers[0].orders);
+    });
 });
