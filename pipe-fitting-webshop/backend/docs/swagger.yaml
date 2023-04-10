@@ -492,7 +492,7 @@ components:
         - _id
         - name
         - manufacturer
-        - weldtech
+        - weldTech
         - price
         - imageUrl
         - createdAt
@@ -504,7 +504,7 @@ components:
           type: string
         manufacturer:
           type: string
-        weldtech:
+        weldTech:
           type: string
         price:
           type: integer

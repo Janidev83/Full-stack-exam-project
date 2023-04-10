@@ -7,7 +7,7 @@
       <div class="card-body text-center p-0">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text">{{product.manufacturer}}</p>
-        <p class="card-text">{{product.weldtech}}</p>
+        <p class="card-text">{{product.weldTech}}</p>
         <p class="card-text fw-semibold">{{product.price | hufCurrency}}</p>
         <button *ngIf="loggedInUser$ | async" type="button" class="btn btn-sm btn-primary mb-1" (click)="passIndex()" [disabled]="storageContains">{{storageContains ? 'Already in cart' : 'Add to cart'}}</button>
       </div>

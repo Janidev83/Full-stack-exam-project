@@ -10,7 +10,7 @@ const ProductSchema = mongoose.Schema({
         enum: ['AGRU', 'Georg Fischer', 'Plasson', 'Simona', 'Viniplast'],
         required: [true, 'Missing manufacturer!']
     },
-    weldtech: {
+    weldTech: {
         type: String,
         required: [true, 'Missing welding technology!']
     },

@@ -14,21 +14,21 @@ describe('Product service tests', () => {
             {
                 name: "Coupler 280mm",
                 manufacturer: "Simona",
-                weldtech: "polyfusion",
+                weldTech: "polyfusion",
                 price: 710,
                 imageUrl: "http:images/polyfusion_coupler.jpg"
             },
             {
                 name: "Elbow 125mm",
                 manufacturer: "Viniplast",
-                weldtech: "polyfusion",
+                weldTech: "polyfusion",
                 price: 1245,
                 imageUrl: "http://localhost:3000/iion_coupler.jpg"
             },
             {
                 name: "Coupler 32mm",
                 manufacturer: "AGRU",
-                weldtech: "electrofusion",
+                weldTech: "electrofusion",
                 price: 34657,
                 imageUrl: "http://localhost:3000/images/electroer.jpg"
             }

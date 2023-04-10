@@ -13,336 +13,336 @@
     {
       "name": "Coupler 20mm",
       "manufacturer": "AGRU",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 180,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 25mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 230,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 32mm",
       "manufacturer": "Plasson",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 360,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 63mm",
       "manufacturer": "Simona",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 530,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 90mm",
       "manufacturer": "Viniplast",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 710,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 110mm",
       "manufacturer": "AGRU",
-      "weldtech": "polyfusion",
+      "weldTech": "polyfusion",
       "price": 870,
       "imageUrl": "http://localhost:3000/images/polyfusion_coupler.jpg"
     },
     {
       "name": "Coupler 32mm",
       "manufacturer": "Viniplast",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 2000,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Coupler 125mm",
       "manufacturer": "Simona",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 4500,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Coupler 315mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 45000,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Coupler 500mm",
       "manufacturer": "Plasson",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 136000,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Coupler 630mm",
       "manufacturer": "AGRU",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 197000,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Coupler 710mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 246000,
       "imageUrl": "http://localhost:3000/images/electrofusion_coupler.jpg"
     },
     {
       "name": "Elbow 90mm",
       "manufacturer": "Simona",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 5600,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 125mm",
       "manufacturer": "Viniplast",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 7850,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 160mm",
       "manufacturer": "AGRU",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 13400,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 250mm",
       "manufacturer": "Plasson",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 23200,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 315mm",
       "manufacturer": "Simona",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 44600,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 560mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 97800,
       "imageUrl": "http://localhost:3000/images/butt_elbow_90°.jpg"
     },
     {
       "name": "Elbow 25mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 1200,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Elbow 75mm",
       "manufacturer": "Plasson",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 2760,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Elbow 125mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 5340,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Elbow 200mm",
       "manufacturer": "Viniplast",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 12300,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Elbow 280mm",
       "manufacturer": "AGRU",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 21500,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Elbow 400mm",
       "manufacturer": "Plasson",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 53400,
       "imageUrl": "http://localhost:3000/images/electrofusion_elbow_90°.jpg"
     },
     {
       "name": "Equal Tee 110mm",
       "manufacturer": "AGRU",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 7800,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Equal Tee 225mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 14600,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Equal Tee 315mm",
       "manufacturer": "Plasson",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 31500,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Equal Tee 450mm",
       "manufacturer": "AGRU",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 78300,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Equal Tee 560mm",
       "manufacturer": "Viniplast",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 167000,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Equal Tee 630mm",
       "manufacturer": "AGRU",
-      "weldtech": "butt-welding",
+      "weldTech": "butt-welding",
       "price": 223000,
       "imageUrl": "http://localhost:3000/images/buttwelding_T.jpg"
     },
     {
       "name": "Reducer Tee 25mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 1340,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Reducer Tee 63mm",
       "manufacturer": "Viniplast",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 3560,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Reducer Tee 110mm",
       "manufacturer": "Plasson",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 6780,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Reducer Tee 225mm",
       "manufacturer": "AGRU",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 26700,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Reducer Tee 280mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 47600,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Reducer Tee 450mm",
       "manufacturer": "Viniplast",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 89200,
       "imageUrl": "http://localhost:3000/images/electrofusion_T.jpg"
     },
     {
       "name": "Saddle 110/20mm",
       "manufacturer": "AGRU",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 230,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 160/63mm",
       "manufacturer": "Plasson",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 780,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 250/32mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 540,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 400/90mm",
       "manufacturer": "Viniplast",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 1860,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 500/110mm",
       "manufacturer": "AGRU",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 2560,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 710/50mm",
       "manufacturer": "Plasson",
-      "weldtech": "heating-plate",
+      "weldTech": "heating-plate",
       "price": 870,
       "imageUrl": "http://localhost:3000/images/heatable_saddle.jpg"
     },
     {
       "name": "Saddle 200/40mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 3860,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     },
     {
       "name": "Saddle 315/125mm",
       "manufacturer": "AGRU",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 11400,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     },
     {
       "name": "Saddle 450/90mm",
       "manufacturer": "Viniplast",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 10100,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     },
     {
       "name": "Saddle 500/160mm",
       "manufacturer": "Plasson",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 34200,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     },
     {
       "name": "Saddle 560/225mm",
       "manufacturer": "Georg Fischer",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 67800,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     },
     {
       "name": "Saddle 800/315mm",
       "manufacturer": "AGRU",
-      "weldtech": "electrofusion",
+      "weldTech": "electrofusion",
       "price": 257450,
       "imageUrl": "http://localhost:3000/images/electrofusion_saddle.jpg"
     }
