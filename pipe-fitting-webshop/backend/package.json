@@ -8,6 +8,11 @@
     "start:nodemon": "cross-env NODE_ENV=develop nodemon src/index.js",
     "start:test": "cross-env NODE_ENV=test nodemon src/index.js",
     "test": "jest",
+    "test:customer": "jest src/controller/customer/customer.service.test.js",
+    "test:order": "jest src/controller/order/order.service.test.js",
+    "test:product": "jest src/controller/product/product.service.test.js",
+    "test:registration": "jest src/controller/registration/registration.service.test.js",
+    "test:integration": "jest server.test.js",
     "test:coverage": "jest --coverage"
   },
   "keywords": [],
