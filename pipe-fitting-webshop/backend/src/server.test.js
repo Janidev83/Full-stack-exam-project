@@ -19,14 +19,7 @@ describe('REST API integration tests', ()=> {
                 address: "Vályog utca 32.",
                 email: "kbela@gmail.com",
                 password: "belus25"
-            },
-            {
-                lastName: "Gyantár",
-                firstName: "Gábor",
-                address: "Kismaros sétány 321",
-                email: "gygabor@gmail.com",
-                password: "125gabi533"
-            },
+            }
         ],
         products: [
             {
@@ -83,7 +76,7 @@ describe('REST API integration tests', ()=> {
         console.log('MongoDB connection closed!');
     });
 
-    test('POST /login endpoint with valid logindata', async () => {
+    test('POST /api/login endpoint with valid logindata', async () => {
         await Customer.insertMany(insertData.customers);
         const loginData = {
             email: "kbela@gmail.com",
@@ -105,7 +98,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body.refreshToken).toBeTruthy();
     });
 
-    test('POST /refresh endpoint with valid refreshtoken', async () => {
+    test('POST /api/refresh endpoint with valid refreshtoken', async () => {
         await Token.insertMany(insertData.tokens);
         const token = {
             refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI5YTAxY2I2NWZkYTE4ZDFkYjQzNmYiLCJsYXN0TmFtZSI6IkFtYnJ1cyIsImZpcnN0TmFtZSI6IkrDoW5vcyIsImFkZHJlc3MiOiIxMDMxIEJ1ZGFwZXN0LCBDc8OzbmFraMOheiB1dGNhIDkuIiwiZW1haWwiOiJhbWJqYTE5ODNAZ21haWwuY29tIiwib3JkZXJzIjpbIjY0MzE1Njc4NTBjNzNiZmNmMTM4M2FkNyIsIjY0MzE2YjM5YWE5MmU4MzJiNGJhMjU3YyIsIjY0MzE3NzEyYWE5MmU4MzJiNGJhMjVhYSIsIjY0MzE4MmVhNzllOTYzYjFiN2VhODNlMSIsIjY0MzJmNmNkZTcxYWMwZGRlOWQwMjk0OCIsIjY0MzMyNTFiZTZkYTJlZGQzNGQwZWMxNSIsIjY0MzMyNzZiODg2NGJjYWNmYmFmYTM2MSIsIjY0MzQyZTg3MjAzNWUzYWFlZTc0NjMzNCIsIjY0MzQzYmE4ZTJkYjkwZjk5ZjM3ZjkzMyJdLCJpYXQiOjE2ODExNDY3NDR9.69JJSvbX8cTnUoNjHZvtNa076pTa8A__8si7vk8nBKg"
@@ -117,7 +110,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body.accessToken).toBeTruthy();
     });
 
-    test('POST /logout endpoint with valid refreshtoken', async () => {
+    test('POST /api/logout endpoint with valid refreshtoken', async () => {
         await Token.insertMany(insertData.tokens);
         const token = {
             refreshToken: insertData.tokens[0].refreshToken
@@ -128,7 +121,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body).toEqual({});
     });
 
-    test('POST /registration endpoint with valid data', async () => {
+    test('POST /api/registration endpoint with valid data', async () => {
         const newCustomer = {
             lastName: "Ambrus",
             firstName: "János",
@@ -142,7 +135,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body).toEqual({});
     });
 
-    test('PUT /customer/:id endpoint with valid id and data', async () => {
+    test('PUT /api/customer/:id endpoint with valid id and data', async () => {
         const savedCustomers = await Customer.insertMany(insertData.customers);
         const loginResponse = await supertest(app).post('/api/login')
         .send({
@@ -172,7 +165,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body.orders).toEqual(savedCustomers[0].orders);
     });
 
-    test('GET /customer endpoint', async () => {
+    test('GET /api/customer endpoint', async () => {
         const savedCustomers = await Customer.insertMany(insertData.customers);
         const loginResponse = await supertest(app).post('/api/login')
         .send({
@@ -193,7 +186,7 @@ describe('REST API integration tests', ()=> {
         expect(response.body.orders).toEqual(savedCustomers[0].orders);
     });
 
-    test('GET /product endpoint with valid query data', async () => {
+    test('GET /api/product endpoint with valid query data', async () => {
         const savedProducts = await Product.insertMany(insertData.products);
         const response = await supertest(app).get('/api/product').query({volume: '2'});
 
@@ -208,5 +201,88 @@ describe('REST API integration tests', ()=> {
             expect(product.price).toBe(insertData.products[index + 2].price);
             expect(product.imageUrl).toBe(insertData.products[index + 2].imageUrl);
         });
+    });
+
+    test('POST /api/order/:id endpoint with valid customer id and data', async ()=> {
+        const savedCustomer = await Customer.insertMany(insertData.customers);
+        const loginResponse = await supertest(app).post('/api/login')
+        .send({
+            email: "kbela@gmail.com",
+            password: "belus25"
+        });
+        ACCESS_TOKEN = loginResponse.body.accessToken;
+        REFRESH_TOKEN = loginResponse.body.refreshToken;
+
+        const request = {
+            deliveryAddress: insertData.customers[0].address,
+            paidAmount: 253567
+        };
+
+        const response = await supertest(app).post(`/api/order/${savedCustomer[0]._id.toString()}`)
+        .set('Authorization', `Bearer ${ACCESS_TOKEN}`).send(request);
+
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toEqual({});
+    });
+
+    test('GET /api/order endpoint with valid customer id', async () => {
+        const savedCustomers = await Customer.insertMany(insertData.customers);
+        const newOrder = {
+            deliveryAddress: insertData.customers[0].address,
+            paidAmount: 253567
+        };
+
+
+        const loginResponse = await supertest(app).post('/api/login')
+        .send({
+            email: "kbela@gmail.com",
+            password: "belus25"
+        });
+        ACCESS_TOKEN = loginResponse.body.accessToken;
+        REFRESH_TOKEN = loginResponse.body.refreshToken;
+
+        await supertest(app).post(`/api/order/${savedCustomers[0]._id.toString()}`)
+        .set('Authorization', `Bearer ${ACCESS_TOKEN}`).send(newOrder);
+        
+        const response = await supertest(app).get('/api/order').set('Authorization', `Bearer ${ACCESS_TOKEN}`)
+
+        expect(response.statusCode).toBe(200);
+        expect(Array.isArray(response.body)).toBeTruthy();
+        expect(response.body.length).toBe(1);
+        response.body.forEach(order => {
+            expect(order).toHaveProperty('_id');
+            expect(order).toHaveProperty('number');
+            expect(order).toHaveProperty('date');
+            expect(order.deliveryAddress).toBe(savedCustomers[0].address);
+            expect(order.paidAmount).toBe(newOrder.paidAmount);
+            expect(order.customer).toBe(savedCustomers[0]._id.toString());
+        });
+    });
+
+    test('DELETE /api/order/:id endpoint with valid order id', async () => {
+        const savedCustomers = await Customer.insertMany(insertData.customers);
+        const newOrder = {
+            deliveryAddress: insertData.customers[0].address,
+            paidAmount: 2762728
+        };
+
+        const loginResponse = await supertest(app).post('/api/login')
+        .send({
+            email: "kbela@gmail.com",
+            password: "belus25"
+        });
+        ACCESS_TOKEN = loginResponse.body.accessToken;
+        REFRESH_TOKEN = loginResponse.body.refreshToken;
+
+        await supertest(app).post(`/api/order/${savedCustomers[0]._id.toString()}`)
+        .set('Authorization', `Bearer ${ACCESS_TOKEN}`).send(newOrder);
+
+        const savedOrdersResponse = await supertest(app).get('/api/order').set('Authorization', `Bearer ${ACCESS_TOKEN}`);
+
+        const response = await supertest(app).delete(`/api/order/${savedOrdersResponse.body[0]._id}`)
+        .set('Authorization', `Bearer ${ACCESS_TOKEN}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual({});
     });
 });
