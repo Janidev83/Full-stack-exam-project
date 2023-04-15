@@ -11,6 +11,7 @@ const authHandler = require('./auth/authHandler');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./docs/swagger.yaml');
+const frontendAppPath = path.join(__dirname, '..', 'public', 'frontend');
 const app = express();
 const apiWrapper = express();
 
@@ -38,11 +39,10 @@ app.use('/product', require('./controller/product/product.controller'));
 
 app.use('/order', authenticateJWT, require('./controller/order/order.controller'));
 
+apiWrapper.use('/', express.static(frontendAppPath));
+
 apiWrapper.all('*' ,(req, res, next) => {
-    //! Átírni a jegyzet alapján (sendFile), ha már le van buildelve
-    logger.warn(`Bad request url: ${req.originalUrl}`);
-    next(new createError.BadRequest('Page not found!'));
-    res.redirect('/');
+    res.sendFile(frontendAppPath + '/index.html');
 });
 
 //* error-handling
