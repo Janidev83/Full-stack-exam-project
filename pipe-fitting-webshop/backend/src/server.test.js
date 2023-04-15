@@ -1,3 +1,4 @@
+const config = require('config')
 const app = require('./server');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
@@ -66,8 +67,13 @@ describe('REST API integration tests', ()=> {
     };
 
     beforeEach(async () => {
-        await mongoose.connect('mongodb://127.0.0.1:27017/PipeFittingWebshopTestDB');
-        console.log('MongoDB connection established!');
+        try {
+            await mongoose.connect(config.testDatabase.host);
+            console.log('MongoDB connection established!');
+        } catch(err) {
+            console.log(err);
+            process.exit();
+        }
     });
 
     afterEach(async () => {

@@ -160,6 +160,7 @@ dist
 .history
 .ionide
 
-/config/
+# /config/ ---> éles projectnél mindig!!!!
+data
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode
