@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Pipe Fitting Webshop
+  title: Pipe Fitting Webshop API
   description: A way to buy polyetilen pipe fittings easily
 servers:
   - url: http://localhost:3000/api

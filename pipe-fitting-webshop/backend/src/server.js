@@ -6,7 +6,6 @@ const morgan = require('morgan');
 const path = require('path');
 const logger = require('./config/logger');
 const authenticateJWT = require('./auth/authenticate');
-const createError = require('http-errors');
 const authHandler = require('./auth/authHandler');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
