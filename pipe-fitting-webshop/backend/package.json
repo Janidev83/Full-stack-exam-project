@@ -12,6 +12,7 @@
     "test:order": "jest src/controller/order/order.service.test.js",
     "test:product": "jest src/controller/product/product.service.test.js",
     "test:registration": "jest src/controller/registration/registration.service.test.js",
+    "test:unit": "npm run test:customer && npm run test:order && npm run test:product && npm run test:registration",
     "test:integration": "jest server.test.js",
     "test:coverage": "jest --coverage"
   },

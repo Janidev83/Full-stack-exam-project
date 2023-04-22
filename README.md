@@ -15,36 +15,27 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - Dockerizálva van - konténerből futtatható.
 
 ## Alkalmazás telepítése
-1. Klónozza a git repo-t ---> terminálban: git clone https://github.com/Strukturavaltas-FullstackAPI-2023/fsapi-remek-assignment-Janidev83.git
+1. Klónozza a git repo-t a megfelelő mappába ---> terminálban: git clone https://github.com/Strukturavaltas-FullstackAPI-2023/fsapi-remek-assignment-Janidev83.git
 2. 
-    - A - metódus
-        - Telepítse a függőségeket
-            - **/frontend** mappába belépni *cd frontend* ---> terminálban:   npm i
-            - **/backend** mappába belépni *cd backend* ---> terminálban:  npm i
-        - Ha nem rendelkezik Angular-ral
-            - Telepítse a gépére ---> terminálban: npm i -g @angular/cli
-        - Buildelje le az alkalmazást ---> terminálban: ng build
-        - Másolja be a **/frontend/dist/frontend*** mappa tartalmát a **/backend/public** mappájába
-    - B - metódus
-        - Alkalmazás indítása
-            - Terminálban lépjen be a **/backend** mappába
-            - Parancs futtatása ---> docker compose up
+    - Telepítse a szükséges softwareket
+        - [VScode](https://code.visualstudio.com/download)
+        - [NodeJS](https://nodejs.org/en/download)
+        - [Docker](https://docs.docker.com/engine/install/)
 
 ## Alkalmazás indítása
-- Docker konténer inicializálása, indítása
-    - Ha nem rendelkezik docker desktop alkalmazással, töltse le és telepítse
-        - [Docker Desktop](https://www.docker.com/products/docker-desktop/) - BIZTOSAT MEGADNI JANI!!!
-    - Indítsa el a Docker Desktop alkalmazást
-    - Lépjen be a **/backend** mappába *cd backend ---> Terminálban: npm run dev - VÉGLEGESET ELLENŐRIZNI? JÓ E A PARANCS!!!
+- Indítsa el a Docker Desktop alkalmazást
+- Nyissa meg a VScode-t
+    - File tab -> Open Folder -> Ön mappája -> fsapi-remek-assignment-Janidev83 -> pipe-fitting-webshop
+- **/backend** mappába belépni *cd backend* ---> terminálban: docker compose up -d
 ## Alkalmazás megnyitása
-- [Csőidom Webshop](https://pages.github.com/) - VÉGLEGESET MEGADNI MAJD!!!JANI
+- [Csőidom Webshop](http://localhost:3000/)
 ## Swagger megnyitása
-- [Swagger](https://localhost:3000/api-docs) - VÉGLEGESET MEGADNI MAJD!!!JANI
+- [Swagger](http://localhost:3000/api-docs)
 ## Alkalmazás leállítása
-- **/frontend** mappába belépni *cd frontend* ---> terminálban: docker compose down
+- **/backend** mappába belépni *cd backend* ---> terminálban: docker compose down
 
 ## Végpontok dokumentációja
-### [Swagger](https://pages.github.com/)
+### [Swagger](http://localhost:3000/api-docs)
 - POST/login - felhasználó bejelentkezés
 - POST/refresh - felhasználó access tokenjének frissítése
 - POST/logout - felhasználó kijelentkezés
@@ -57,18 +48,19 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - DELETE/order/order_id - bejelentkezett felhasználó által elküldött rendelések visszavonása, törlése
 
 ## Integrációs tesztek futtatása
-- Lsd. - Alkalmazás telepítése, indítása
-- **/backend** mappába belépni *cd backend* ---> terminálban:  npm run test:integration - ELLENŐRIZNI!!!JANI
+- **/backend** mappába belépni *cd backend* ---> npm i
+- npm run test:integration
 
 ## Egységtesztek futtatása
-- Lsd. - Alkalmazás telepítése, indítása
-- **/backend** mappába belépni *cd backend* ---> terminálban
+- Ha még nem tettük meg:
+    - **/backend** mappába belépni *cd backend* ---> npm i
     - Összes futtatása
-        - npm run test:unit - ELLENŐRIZNI JANI!!!!
-    - Egyes tesztek futtatása - EZEKET NAPRAKÉSZRE ÍRNI A VÉGÉNJANI!!!
-        - npm run test:auth
-        - npm run test:validator
-        -  és így továbbb!!!!
+        - npm run test:unit
+    - Egyes tesztek futtatása
+        - npm run test:customer
+        - npm run test:order
+        - npm run test:product
+        - npm run test:registration
 
 ## Entitások
 - **customer**
