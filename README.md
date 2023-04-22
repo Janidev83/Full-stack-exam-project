@@ -15,9 +15,8 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - Dockerizálva van - konténerből futtatható.
 
 ## Alkalmazás telepítése
-1. Fork-olja a git repo tartalmát ---> [Csőidom webshop project](https://github.com/Strukturavaltas-FullstackAPI-2023/fsapi-remek-assignment-Janidev83)
-2. Klónozza a git repo-t ---> terminálban: git clone https://github.com/Strukturavaltas-FullstackAPI-2023/fsapi-remek-assignment-Janidev83.git
-3. 
+1. Klónozza a git repo-t ---> terminálban: git clone https://github.com/Strukturavaltas-FullstackAPI-2023/fsapi-remek-assignment-Janidev83.git
+2. 
     - A - metódus
         - Telepítse a függőségeket
             - **/frontend** mappába belépni *cd frontend* ---> terminálban:   npm i
