@@ -25,14 +25,27 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 ## Alkalmazás indítása
 - Indítsa el a Docker Desktop alkalmazást
 - Nyissa meg a VScode-t
-    - File tab -> Open Folder -> Ön mappája -> fsapi-remek-assignment-Janidev83 -> pipe-fitting-webshop
-- **/backend** mappába belépni *cd backend* ---> terminálban: docker compose up -d
+    - File tab -> Open Folder -> Ön mappája -> fsapi-remek-assignment-Janidev83
+- **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> terminálban: docker compose up -d
 ## Alkalmazás megnyitása
 - [Csőidom Webshop](http://localhost:3000/)
 ## Swagger megnyitása
 - [Swagger](http://localhost:3000/api-docs)
 ## Alkalmazás leállítása
-- **/backend** mappába belépni *cd backend* ---> terminálban: docker compose down
+- **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> terminálban: docker compose down
+## Alkalmazás indítása fejlesztéshez
+- **backend**
+    - **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> terminálban: npm i
+    - npm run start:nodemon
+- **frontend**
+    - **/frontend** mappába belépni *cd pipe-fitting-webshop/frontend* ---> terminálban: npm i
+    - npm run start
+## Alkalmazás megnyitása
+- [Csőidom Webshop](http://localhost:4200/)
+## Alkalmazás buildelése
+- Ha fejlesztés során változtatás történt a frontend mappában, buildelje le
+    -  **/frontend** mappába belépni *cd pipe-fitting-webshop/frontend*
+    - npm run build
 
 ## Végpontok dokumentációja
 ### [Swagger](http://localhost:3000/api-docs)
@@ -48,12 +61,12 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - DELETE/order/order_id - bejelentkezett felhasználó által elküldött rendelések visszavonása, törlése
 
 ## Integrációs tesztek futtatása
-- **/backend** mappába belépni *cd backend* ---> npm i
+- **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> docker compose up -d
 - npm run test:integration
 
 ## Egységtesztek futtatása
 - Ha még nem tettük meg:
-    - **/backend** mappába belépni *cd backend* ---> npm i
+    - **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> npm i
     - Összes futtatása
         - npm run test:unit
     - Egyes tesztek futtatása
