@@ -1,2 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+.custom-modalbox {
+  mat-dialog-container {
+    box-shadow: 1px 1px 15px 1px #000000;
+  }
+}

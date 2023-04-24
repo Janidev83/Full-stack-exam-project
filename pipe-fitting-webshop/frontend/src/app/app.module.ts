@@ -16,12 +16,14 @@ import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from './components/presentationals/product-item/product-item.component';
 import { PaginationComponent } from './components/presentationals/pagination/pagination.component';
 import { OrderItemComponent } from './components/presentationals/order-item/order-item.component';
+import { DialogComponent } from './components/presentationals/dialog/dialog.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from "ngx-toastr";
 import { AuthInterceptor } from 'src/interceptors/authentication.interceptor';
 import { CurrencyPipe } from '@angular/common';
 import { HufCurrencyPipe } from './pipes/hufcurrency.pipe';
 import { registerLocaleData } from '@angular/common';
+import { MaterialExampleModule } from './material.module';
 import localeHu from '@angular/common/locales/hu';
 
 registerLocaleData(localeHu, 'hu-HU');
@@ -40,6 +42,7 @@ registerLocaleData(localeHu, 'hu-HU');
     ProductItemComponent,
     PaginationComponent,
     OrderItemComponent,
+    DialogComponent,
     HufCurrencyPipe
   ],
   imports: [
@@ -48,6 +51,7 @@ registerLocaleData(localeHu, 'hu-HU');
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    MaterialExampleModule,
     ToastrModule.forRoot(),
   ],
   providers: [

@@ -6,6 +6,8 @@ import { Product } from 'src/app/model/product.model';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { OrderService } from 'src/app/service/order/order.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '../../presentationals/dialog/dialog.component';
 
 
 @Component({
@@ -24,7 +26,8 @@ export class CartComponent implements OnInit {
     private storageService: StorageService,
     private orderService: OrderService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -49,16 +52,18 @@ export class CartComponent implements OnInit {
   }
 
   sendOrder(): void {
-    const confirmOrder = confirm('Are you sure about sending the order?');
-    if(confirmOrder && this.customer?._id) {
-      this.orderService.saveOrder(this.customer?._id, {deliveryAddress: this.customer.address, paidAmount: this.totalPrice}).subscribe({
-        error: err => this.toastr.error(err.message)
-      });
-      localStorage.removeItem('orderItems');
-      this.storageService.addSumOfItems();
-      this.router.navigate(['']);
-      this.toastr.success('Order sent', 'Success');
-    }
+    this.openDialog().afterClosed().subscribe(booleanString => {
+      const confirmOrder = booleanString
+      if(confirmOrder === 'true' && this.customer?._id) {
+        this.orderService.saveOrder(this.customer?._id, {deliveryAddress: this.customer.address, paidAmount: this.totalPrice}).subscribe({
+          error: err => this.toastr.error(err.message)
+        });
+        localStorage.removeItem('orderItems');
+        this.storageService.addSumOfItems();
+        this.router.navigate(['']);
+        this.toastr.success('Order sent', 'Success');
+      }
+    });
   }
 
   deleteItemFromLocalStorage(index: number): void {
@@ -73,6 +78,16 @@ export class CartComponent implements OnInit {
       };
     }
     this.storageService.addSumOfItems();
+  }
+
+  private openDialog(): MatDialogRef<DialogComponent> {
+    return this.dialog.open(DialogComponent, {
+      panelClass: 'custom-modalbox',
+      data: {
+        title: 'Order confirm',
+        content: 'Are you sure about sending order?'
+      }
+    });
   }
 
 }
