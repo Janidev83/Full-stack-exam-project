@@ -61,19 +61,26 @@ Olyan webáruház, mely könnyen kezelhető, felhasználóbarát felületével b
 - DELETE/order/order_id - bejelentkezett felhasználó által elküldött rendelések visszavonása, törlése
 
 ## Integrációs tesztek futtatása
+-  **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> npm i
 - **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> docker compose up -d
 - npm run test:integration
 
 ## Egységtesztek futtatása
 - Ha még nem tettük meg:
     - **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> npm i
-    - Összes futtatása
-        - npm run test:unit
-    - Egyes tesztek futtatása
-        - npm run test:customer
-        - npm run test:order
-        - npm run test:product
-        - npm run test:registration
+- Összes futtatása
+    - npm run test:unit
+- Egyes tesztek futtatása
+    - npm run test:customer
+    - npm run test:order
+    - npm run test:product
+    - npm run test:registration
+
+## Összes teszt futtatása
+- Ha még nem tettük meg:
+    - **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> npm i
+- **/backend** mappába belépni *cd pipe-fitting-webshop/backend* ---> docker compose up -d
+- npm run test
 
 ## Entitások
 - **customer**
